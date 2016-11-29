@@ -77,5 +77,8 @@ class UserController extends Controller
 			$user->email='rana@gmail.com';
 			$user->password=md5('awesome');
 			$user->save();
+			
+			
+			
 		}
 }
