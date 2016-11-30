@@ -20,43 +20,44 @@ class UserController extends Controller
 		{
 		 
               $email=Input::get('email');
-			$password=md5(Input::get('password'));		   
-		   $rules = array(
-    'email'    => 'required|email', // make sure the email is an actual email
-    'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
-);  
+				$password=md5(Input::get('password'));		   
+				$rules = array(
+				'email'    => 'required|email', // make sure the email is an actual email
+				'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+				);  
 
 
                $validator = Validator::make(Input::all(), $rules);  
 			   if ($validator->fails()) {
-    return Redirect::to('/superadmin/login')
-        ->withErrors($validator) // send back all errors to the login form
-        ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+					return Redirect::to('/superadmin/login')
+					->withErrors($validator) // send back all errors to the login form
+					->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
 }         
                 else {
 
-    // create our user data for the authentication
-    $userdata = array(
-        'email'     => Input::get('email'),
-        'password'  => Input::get('password')
-    );
+			// create our user data for the authentication
+				$userdata = array(
+					'email'     => Input::get('email'),
+					'password'  => Input::get('password')
+				);
 
-    // attempt to do the login
-    if (Auth::attempt($userdata)) {
+				// attempt to do the login
+				if (Auth::attempt($userdata)) {
 
-        // validation successful!
-        // redirect them to the secure section or whatever
-        // return Redirect::to('secure');
-        // for now we'll just echo success (even though echoing in a controller is bad)
-        echo 'SUCCESS!';
+					// validation successful!
+					// redirect them to the secure section or whatever
+					// return Redirect::to('secure');
+					// for now we'll just echo success (even though echoing in a controller is bad)
+					//echo 'SUCCESS!';
+					return redirect('/superadmin/dashboard');
 
-    } else {        
+				} else {        
 
-        // validation not successful, send back to form 
-        return Redirect::to('/superadmin/login')->withErrors($validator) // send back all errors to the login form
-        ->withInput(Input::except('password'));
+					// validation not successful, send back to form 
+					return Redirect::to('/superadmin/login')->withErrors($validator) // send back all errors to the login form
+					->withInput(Input::except('password'));
 
-    }
+				}
 			   
 			   
 			   
@@ -71,13 +72,13 @@ class UserController extends Controller
 		
 		public function create()
 		{
-			$user= new User;
-			$user->first_name='murli';
-			$user->last_name='rana';
-			$user->email='rana@gmail.com';
-			$user->password=md5('awesome');
+		/*	$user= new User;
+			$user->first_name='admin';
+			$user->last_name='admin';
+			$user->email='admin@admin.com';
+			$user->password=Hash::make('admin1234');
 			$user->save();
-			
+			*/
 			
 			
 		}

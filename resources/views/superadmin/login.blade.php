@@ -36,7 +36,7 @@
 
     @foreach ($errors->all() as $error)
     <li>{{ $error }}</li>
-            @endforeach
+     @endforeach
   <!--  <a href="#">I forgot my password</a><br>
     <a href="URL::to('register')" class="text-center">Register a new membership</a>
 -->

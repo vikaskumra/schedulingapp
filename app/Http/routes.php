@@ -23,6 +23,21 @@ Route::post('/superadmin/login', ['as'=>'login', 'uses' => 'UserController@login
 
 Route::get('/superadmin/user/create', ['uses' => 'UserController@create']);
 
+Route::get('/superadmin/companytypes', ['uses' => 'SuperAdminController@listCompanyTypes']);
+
+Route::get('/superadmin/managecompanytype', ['uses' => 'SuperAdminController@manageCompanyType']);
+
+
+Route::post('/superadmin/managecompanytype', ['uses' => 'SuperAdminController@manageCompanyType']);
+
+Route::get('/superadmin/managecompanytype/{id}', ['uses' => 'SuperAdminController@manageCompanyType']);
+Route::post('/superadmin/managecompanytype/{id}', ['uses' => 'SuperAdminController@manageCompanyType']);
+
+Route::get('/superadmin/dashboard', function(){  
+
+return view('superadmin/dashboard'); });
+
+
 Route::get('/common/header',function(){
 	
 	return view('common/header');
