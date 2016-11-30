@@ -1,6 +1,17 @@
 @include('common/header')
 @include('common/userheader')
-
+<!--1) Company Name  : Text
+2) Company Type:  DropDown
+3) First Name : Text
+4) Last Name: Text
+5) Address: Textarea
+6) State:  Text
+7) City:  Text
+8) Country: Text
+9) Phone: phone
+10) Email: Email
+11) password: Password
+12) confirm password: password-->
 
       <div class="row">
         <div class="col-md-12">

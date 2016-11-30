@@ -214,7 +214,8 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!--<img src="{{asset('assets/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">-->
-              <span class="hidden-xs">Alexander Pierce</span>
+              
+			  <span class="hidden-xs">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</span>
             </a>
 			<ul class="dropdown-menu">
 				<li class="user-footer">
@@ -222,7 +223,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{URL::to('/signout')}}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
 			</ul>
@@ -279,7 +280,7 @@
       <div class="user-panel">
        
         <div class="pull-left">
-          <p>Alexander Pierce</p>
+        <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
          <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
         </div>
       </div>
@@ -296,6 +297,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{URL::to('/superadmin/companytypes')}}"><i class="fa fa-circle-o"></i> Add/Edit Company Types</a></li>
+			<li><a href="{{URL::to('/superadmin/clients')}}"><i class="fa fa-circle-o"></i> Add/Edit Clients</a></li>
             <!--<li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
           </ul>
         </li>

@@ -13,6 +13,7 @@
 			<div class="box box-info">
             <div class="box-header with-border">
              <h3 class="box-title">Manage Company Types</h3>
+			 <a href="{{URL::to('/superadmin/managecompanytype')}}" class="btn btn-info pull-right">Add New Company</a>
             </div>
             <!-- /.box-header -->
            
@@ -37,7 +38,7 @@
                 <tr role="row" class="odd">
                   <td class="sorting_1">{{$companytype->company_type}}</td>
                   <td>{{$companytype->type_note}}</td>
-                  <td><a href="/superadmin/managecompanytype/{{$companytype->id}}">Edit</a> | <a href="">Delete</a></td>
+                  <td><a href="/superadmin/managecompanytype/{{$companytype->id}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> | <a href="/superadmin/removecompanytype/{{$companytype->id}}"><i title="delete" class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                 </tr>
 				@endforeach
 				</tbody>
