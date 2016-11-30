@@ -15,6 +15,7 @@
 
 <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/app.min.js')}}"></script>
 
 <script>
   $(function () {

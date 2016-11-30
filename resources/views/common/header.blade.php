@@ -27,3 +27,5 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
+<div class="wrapper">
+
