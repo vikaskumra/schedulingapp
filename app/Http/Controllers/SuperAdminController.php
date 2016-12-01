@@ -10,7 +10,8 @@ use App\CompanyTypes;
 use App\Company;  
 use App\User;  
 use Hash;  
-use DB;
+use DB;  
+use Validator;
 
 class SuperAdminController extends Controller
 {
@@ -114,25 +115,55 @@ class SuperAdminController extends Controller
 		   
 	   }  
 	   
-	   public function addClients($id=""){			   
+	   public function addClients($id=''){	     
 			 if(!empty($id)){
                    		 
 				    $company = Company::findOrFail($id);
-				   $companytypes=CompanyTypes::all();
-				   return view('/superadmin/manageclients')
-				   ->with(['companytypes'=>$companytypes, 'company'=>$company]);   
-                  $company->company_name = Input::get('company_name'); 
+				   $companytypes=CompanyTypes::all();  
+				   if(!empty(Input::get('id'))){  
+				   echo ($company->id); 
+				   
+				   
+				  $company->company_name = Input::get('company_name'); 
                   $company->company_type = Input::get('company_type');
                   $company->address =      Input::get('address');
                   $company->city =         Input::get('city');
                   $company->state =        Input::get('state');
                   $company->country =      Input::get('country');
-                 echo  $company->phone = 	   Input::get('phone'); 
-                 echo $company->first_name =   Input::get('first_name');				  
-					
+                  $company->phone = 	   Input::get('phone');	 
+                  foreach($company->users as $user)
+				   {
+					  $user->first_name =   Input::get('first_name');  
+                  $user->last_name =    Input::get('last_name');
+                  $user->email =        Input::get('email');  
+				  if(!Input::get('password') == ''){
+					  $user->password =     Hash::make(Input::get('password'));
+				  }
+                  
+				  $user->save();
+				   }				  
+                   
+				  $company->save();
+				  return redirect('/superadmin/clients');
+                                
+				  }  
+
+                       else{
+						   return view('/superadmin/manageclients')
+				   ->with(['companytypes'=>$companytypes, 'company'=>$company]);
+					   }				   
+		
 				   
 			 }
-			 else{			 
+			 else{
+   
+       $rules = ['password'=>'required|same:confpass'];
+       $validation = Validator::make(Input::all(), $rules);
+        if($validation->fails()){
+			return redirect('/superadmin/manageclients')->withErrors($validation)->withInput();
+		}	   
+		
+	   else{	   
 			 $company = new Company;
 		   $company->company_name = Input::get('company_name');
            $company->company_type = Input::get('company_type');
@@ -149,8 +180,20 @@ class SuperAdminController extends Controller
             $user->email =          Input::get('email');
             $user->password = Hash::make(Input::get('password'));
             $user->save();  
-			return view('/superadmin/clients');  
+			return redirect('/superadmin/clients');  
 			 }
+		 }
+	   }  
+	   
+	   
+	   public function deleteClients($id){
+		   $clients = Company::findOrFail($id);  
+		   foreach($clients->users as $user)
+		   {
+			   $user->delete();
+		   }  
+		   $clients->delete();  
+            return redirect('/superadmin/clients');
 	   }
 	
 	

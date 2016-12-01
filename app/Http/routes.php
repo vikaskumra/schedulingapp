@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users.index');
 });
 
 Route::get('/superadmin/login', function () {
@@ -40,7 +40,8 @@ Route::get('/superadmin/clients', ['uses' => 'SuperAdminController@listClients']
 Route::get('/superadmin/manageclients', ['uses' => 'SuperAdminController@manageClients']);  
 Route::post('/superadmin/manageclients', ['uses' => 'SuperAdminController@addClients']);
 Route::get('/superadmin/manageclients/{id}', ['uses' => 'SuperAdminController@addClients']);
-Route::post('/superadmin/manageclients/{id}', ['uses' => 'SuperAdminController@addClients']);
+Route::post('/superadmin/manageclients/{id}', ['uses' => 'SuperAdminController@addClients']);  
+Route::get('/superadmin/removeclients/{id}', ['uses' => 'SuperAdminController@deleteClients']);
 
 
 
