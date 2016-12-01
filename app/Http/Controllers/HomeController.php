@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;  
+use App\CompanyTypes;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $company_type = CompanyTypes::all();
+		return view('users.signup')->with(['company_type'=>$company_type]);
     }
 }

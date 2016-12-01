@@ -62,7 +62,9 @@ form > fieldset > legend {
 						<div class="form-group col-md-6">
                             <label for="company_type">Company Type</label>
                             <select name="company_type" class="form-control"  id="company_type">
-                                <option>Country 1</option>                               
+                                @foreach($company_type as $type)
+								<option>{{$type->company_type}}</option>      
+                                @endforeach								
                             </select>
                         </div>
 						<div class="form-group col-md-12">
