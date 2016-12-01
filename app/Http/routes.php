@@ -57,7 +57,25 @@ Route::get('/common/footer',function(){
 
 });
 
-Route::auth();
+
 
 Route::get('/home', 'HomeController@index');  
-Route::get('/signout', ['uses'=>'UserController@logout']);
+Route::get('/signout', ['uses'=>'UserController@logout']);  
+Route::get('users/login', function(){
+	return view('users.login');
+}); 
+
+//Route::get('/users/signup',['uses'=>'UserController@usersignup']);  
+Route::get('users/signup',function(){
+	return view('users/signup');
+});
+
+Route::get('/users/common/header', function(){
+	return view('users/common/header');
+}); 
+Route::get('/users/common/footer', function(){
+	return view('users/common/footer');
+});  
+
+
+

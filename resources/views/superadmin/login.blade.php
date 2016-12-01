@@ -1,4 +1,9 @@
-@include('common/header')
+@include('common/header')  
+<style>
+footer{
+	margin-left:0px !important;
+}
+</style>
 <div class="login-box">
   <div class="login-logo">
     <a href="../../index2.html"><b>Scheduling</b> APP</a>
