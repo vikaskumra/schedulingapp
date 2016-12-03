@@ -12,56 +12,74 @@ use App\User;
 use Hash;  
 use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Facades\Redirect;
+use App\CompanyTypes;
+use App\Company; 
 
 class UserController extends Controller
 {
     //
 		public function login()
 		{
-		 
-              $email=Input::get('email');
-				$password=md5(Input::get('password'));		   
-				$rules = array(
-				'email'    => 'required|email', // make sure the email is an actual email
-				'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
-				);  
+			//return view('superadmin/login');
+
+				if(!empty(Input::get('email'))):
+
+						$email=Input::get('email');
+						$password=md5(Input::get('password'));		   
+						$rules = array(
+						'email'    => 'required|email', // make sure the email is an actual email
+						'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+						);  
 
 
-               $validator = Validator::make(Input::all(), $rules);  
-			   if ($validator->fails()) {
-					return Redirect::to('/superadmin/login')
-					->withErrors($validator) // send back all errors to the login form
-					->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
-}         
-                else {
+						$validator = Validator::make(Input::all(), $rules);  
+			   			if ($validator->fails()) 
+						   {
+							return Redirect()->Route('login')
+							->withErrors($validator) // send back all errors to the login form
+							->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+						   }         
+                		   else
+						    {
 
-			// create our user data for the authentication
-				$userdata = array(
-					'email'     => Input::get('email'),
-					'password'  => Input::get('password')
-				);
+								// create our user data for the authentication
+									$userdata = array(
+										'email'     => Input::get('email'),
+										'password'  => Input::get('password')
+									);
 
-				// attempt to do the login
-				if (Auth::attempt($userdata)) {
+									// attempt to do the login
+									if (Auth::attempt($userdata)) {
+										
+										if(Auth::user()->user_type=='superadmin')
+										{
+											return redirect()->route('superadmindashboard');
+										}
+										else{
+											return redirect()->route('userdashboard');
+										}
 
-					// validation successful!
-					// redirect them to the secure section or whatever
-					// return Redirect::to('secure');
-					// for now we'll just echo success (even though echoing in a controller is bad)
-					//echo 'SUCCESS!';
-					return redirect('/superadmin/dashboard');
+										// validation successful!
+										// redirect them to the secure section or whatever
+										// return Redirect::to('secure');
+										// for now we'll just echo success (even though echoing in a controller is bad)
+										echo 'SUCCESS!';
+										//return redirect('/superadmin/dashboard');
 
-				} else {        
+									} else {        
 
-					// validation not successful, send back to form 
-					return Redirect::to('/superadmin/login')->withErrors($validator) // send back all errors to the login form
-					->withInput(Input::except('password'));
+										// validation not successful, send back to form 
+										return Redirect()->Route('login')->withErrors($validator) // send back all errors to the login form
+										->withInput(Input::except('password'));
 
-				}
+									}
 			   
 			   
 			   
-		}	
+							}
+							else:
+									return view('superadmin/login');
+							endif;	
 			
 			// $data=array('email'=>$email,'password'=>$password);
 			  //dd(Auth::attempt(['email'=>Input::get('email'), 'password'=>md5(Input::get('password'))]));
@@ -70,6 +88,13 @@ class UserController extends Controller
 		
 		}
 		
+
+		public function dashboard()
+		{
+				// add code to show user Dashboard here...
+				return view('users/dashboard');
+		}
+
 		public function create()
 		{
 		/*	$user= new User;
@@ -86,6 +111,58 @@ class UserController extends Controller
 		
 		public function logout(){
 			Auth::logout();
-			return redirect('/superadmin/login');
+			//  change redirect based on user type (Ex. client or admin?) 
+			return redirect()->route('login');
+		}
+
+
+		function signup()
+		{
+			if(!empty(Input::get('email')))
+			{
+					$postData=Input::get();
+					
+
+					$rules = ['password'=>'required|same:confpass'];
+					$validation = Validator::make(Input::all(), $rules);
+				if($validation->fails())
+				{
+						//return redirect()->route('')->withErrors($validation)->withInput();
+						//	return redirect()->route('usersignup')->withErrors($validation)->withInput();
+
+						
+						$company_type = CompanyTypes::all();
+						return view('users.signup')->with(['company_type'=>$company_type]);
+				}	   
+		
+				else
+				{	   
+					//echo 'else';
+					//exit;
+					$company = new Company;
+					$company->company_name = Input::get('company_name');
+					$company->company_type = Input::get('company_type');
+					$company->address =      Input::get('address');
+					$company->city =         Input::get('city');
+					$company->state =        Input::get('state');
+					$company->country =      Input::get('country');
+					$company->Phone =		Input::get('phone');   
+					$company->save();
+					$user = new User;
+					$user->first_name =     Input::get('first_name');
+					$user->last_name =      Input::get('last_name');
+					$user->company_id =     $company->id;
+					$user->email =          Input::get('email');
+					$user->password = Hash::make(Input::get('password'));
+					$user->save();  
+					return redirect()->route('login');  
+				}
+					
+			}	
+			else{
+					$company_type = CompanyTypes::all();
+					return view('users.signup')->with(['company_type'=>$company_type]);
+			}
+			
 		}
 }

@@ -1,5 +1,5 @@
 @include('common/header')
-@include('common/userheader')
+@include('common/superadminheader')
 
 
 
@@ -39,13 +39,13 @@
 				<tr role="row" class="odd">
 				   <td class="sorting_1">{{$client->company_name}}</td>
 				   <td>{{$client->company_type}}</td>
-				   @foreach($client->users as $user)
-				   <td>{{$user->first_name}}</td>
-				   <td>{{$user->last_name}}</td>
-				   <td>{{$user->email}}</td> 
+				   
+				   <td>{{$client->first_name}}</td>
+				   <td>{{$client->last_name}}</td>
+				   <td>{{$client->email}}</td> 
 				   
 				   <td><a href="/superadmin/manageclients/{{$client->id}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> | <a href="/superadmin/removeclients/{{$client->id}}"><i title="delete" class="fa fa-trash-o" aria-hidden="true"></i></a></td>
-				   @endforeach
+				   
 				</tr>
 				@endforeach
 				</tbody>

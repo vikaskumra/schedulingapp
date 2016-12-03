@@ -1,5 +1,5 @@
 @include('common/header')
-@include('common/userheader')
+@include('common/superadminheader')
       <div class="row">
         <div class="col-md-12">
           <div class="box">
@@ -28,10 +28,10 @@
                   <label for="companyType" class="col-sm-2 control-label">Select</label>
                   <div class="col-sm-10">
 				  <select required name="company_type" class="form-control">
-				    <option selected>{{$company->company_type}}</option>
-                    @foreach($companytypes as $companytype)
-					<option>{{$companytype->company_type}}</option>  
-					@endforeach
+				 
+            @foreach($companytypes as $companytype)
+					    <option value="{{$companytype->id}}" @if($companytype->id==$company->company_type) selected @endif >{{$companytype->company_type}}</option>  
+				  	@endforeach
                   </select>
                 </div>
 				</div>  												
@@ -395,5 +395,5 @@
 
 </div>
 
-@include('common/userfooter')
+@include('common/superadminfooter')
 @include('common/footer')

@@ -1,5 +1,5 @@
 @include('common/header')
-@include('common/userheader')
+@include('common/superadminheader')
       <div class="row">
         <div class="col-md-12">
           <div class="box">
@@ -254,5 +254,5 @@
 
 </div>
 
-@include('common/userfooter')
+@include('common/superadminfooter')
 @include('common/footer')

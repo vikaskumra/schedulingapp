@@ -25,7 +25,7 @@ class SuperAdminController extends Controller
 	{
 		  if(!Auth::check()){
 	    	
-			return redirect('/superadmin/login');
+			return redirect()->route('login');
 		  }
 		  
 		  else{
@@ -63,16 +63,10 @@ class SuperAdminController extends Controller
 		}
 		else
 		{
-					
-			
-			
-			  
 			   $data=new CompanyTypes;
 			   $data->id='';
 			   $data->company_type='';
 			   $data->type_note='';
-				
-				
 			   $type=new CompanyTypes;
 			   $type->company_type=Input::get('company_type');
 			   $type->type_note=Input::get('type_note');
@@ -96,14 +90,10 @@ class SuperAdminController extends Controller
 	   
 	   
 	   public function listClients(){  
-	   
-	         $value = 'owner';
-		     $clients = Company::with('users')->whereHas('users', function($q) use($value){
-				 $q->where('user_type', '=', $value);
-				 
-			 })->get();  
-			 //print_r($clients);
-			 //exit;
+		   
+		   $company= new Company;
+	        $clients=$company->getClients();
+
 			 return view('/superadmin/clients')->with(['clients'=>$clients]);
 	   }  
 	   
@@ -121,7 +111,7 @@ class SuperAdminController extends Controller
 				    $company = Company::findOrFail($id);
 				   $companytypes=CompanyTypes::all();  
 				   if(!empty(Input::get('id'))){  
-				   echo ($company->id); 
+				   //echo ($company->id); 
 				   
 				   
 				  $company->company_name = Input::get('company_name'); 
@@ -155,33 +145,36 @@ class SuperAdminController extends Controller
 		
 				   
 			 }
-			 else{
+			 else
+			 {
    
-       $rules = ['password'=>'required|same:confpass'];
-       $validation = Validator::make(Input::all(), $rules);
-        if($validation->fails()){
-			return redirect('/superadmin/manageclients')->withErrors($validation)->withInput();
-		}	   
+				$rules = ['password'=>'required|same:confpass'];
+				$validation = Validator::make(Input::all(), $rules);
+				if($validation->fails())
+				{
+						return redirect('/superadmin/manageclients')->withErrors($validation)->withInput();
+				}	   
 		
-	   else{	   
-			 $company = new Company;
-		   $company->company_name = Input::get('company_name');
-           $company->company_type = Input::get('company_type');
-           $company->address =      Input::get('address');
-           $company->city =         Input::get('city');
-           $company->state =        Input::get('state');
-           $company->country =      Input::get('country');
-           $company->Phone =		Input::get('phone');   
-		   $company->save();
-           $user = new User;
-            $user->first_name =     Input::get('first_name');
-            $user->last_name =      Input::get('last_name');
-            $user->company_id =     $company->id;
-            $user->email =          Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
-            $user->save();  
-			return redirect('/superadmin/clients');  
-			 }
+				else
+				{	   
+					$company = new Company;
+					$company->company_name = Input::get('company_name');
+					$company->company_type = Input::get('company_type');
+					$company->address =      Input::get('address');
+					$company->city =         Input::get('city');
+					$company->state =        Input::get('state');
+					$company->country =      Input::get('country');
+					$company->Phone =		 Input::get('phone');   
+					$company->save();
+					$user = new User;
+					$user->first_name =     Input::get('first_name');
+					$user->last_name =      Input::get('last_name');
+					$user->company_id =     $company->id;
+					$user->email =          Input::get('email');
+					$user->password = Hash::make(Input::get('password'));
+					$user->save();  
+					return redirect('/superadmin/clients');  
+				}
 		 }
 	   }  
 	   

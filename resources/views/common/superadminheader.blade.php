@@ -296,8 +296,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{URL::route('setuproles')}}"><i class="fa fa-circle-o"></i> Set up Roles </a></li>
-			      <li><a href="{{URL::route('setuptasktypes')}}"><i class="fa fa-circle-o"></i> Set up Task Types</a></li>
+            <li><a href="{{URL::to('/superadmin/companytypes')}}"><i class="fa fa-circle-o"></i> Add/Edit Company Types</a></li>
+			<li><a href="{{URL::to('/superadmin/clients')}}"><i class="fa fa-circle-o"></i> Add/Edit Clients</a></li>
             <!--<li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
           </ul>
         </li>
@@ -349,8 +349,8 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Open Jobs</span>
-              <span class="info-box-number">10</span>
+              <span class="info-box-text">CPU Traffic</span>
+              <span class="info-box-number">90<small>%</small></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -362,8 +362,8 @@
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">In Progress</span>
-              <span class="info-box-number">5</span>
+              <span class="info-box-text">Likes</span>
+              <span class="info-box-number">41,410</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -379,8 +379,8 @@
             <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Completed</span>
-              <span class="info-box-number">50</span>
+              <span class="info-box-text">Sales</span>
+              <span class="info-box-number">760</span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -392,8 +392,8 @@
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Awaiting Approval</span>
-              <span class="info-box-number">1</span>
+              <span class="info-box-text">New Members</span>
+              <span class="info-box-number">2,000</span>
             </div>
             <!-- /.info-box-content -->
           </div>
