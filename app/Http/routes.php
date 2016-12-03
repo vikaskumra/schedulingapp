@@ -58,11 +58,20 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	Route::match(['get','post'],'user/editrole/{id}', ['uses'=>'RolesController@editrole'])
 	->name('editrole'); 
 
+		Route::get('/user/deleterole', ['uses' => 'RolesController@deleteRole'])->name('deleterole');
+
 	Route::get('/user/setuptasktypes', ['uses' => 'TaskTypesController@index'])->name('setuptasktypes');
 	Route::match(['get','post'],'user/addtasktype', ['uses'=>'TaskTypesController@addtasktype'])
 	->name('addtasktype'); 
 	Route::match(['get','post'],'user/edittasktype/{id}', ['uses'=>'TaskTypesController@edittasktype'])
-	->name('edittasktype'); 
+	->name('edittasktype');
+
+	Route::get('/user/tasks', ['uses' => 'TasksController@index'])->name('setuptasks');
+	Route::match(['get','post'],'user/addtask', ['uses'=>'TasksController@addtask'])
+	->name('addtask'); 
+	Route::match(['get','post'],'user/edittask/{id}', ['uses'=>'TasksController@edittask'])
+	->name('edittask'); 
+	
 
 
 });
@@ -91,6 +100,8 @@ Route::match(['get','post'],'users/login', ['uses'=>'UserController@login'])
 
 Route::match(['get', 'post'],'/user/signup',['uses'=>'UserController@signup'])->name("usersignup");
 Route::get('/user/dashboard', 'UserController@dashboard')->name('userdashboard');
+
+
 
 //Route::get('users/signup',['uses'=>'UserController@signup']);  
 /*Route::get('users/signup',function(){

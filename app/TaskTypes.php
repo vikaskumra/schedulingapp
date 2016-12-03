@@ -25,4 +25,6 @@ class TaskTypes extends Model
         }
         
     }
+
+   
 }

@@ -298,6 +298,7 @@
           <ul class="treeview-menu">
             <li><a href="{{URL::route('setuproles')}}"><i class="fa fa-circle-o"></i> Set up Roles </a></li>
 			      <li><a href="{{URL::route('setuptasktypes')}}"><i class="fa fa-circle-o"></i> Set up Task Types</a></li>
+             <li><a href="{{URL::route('setuptasks')}}"><i class="fa fa-circle-o"></i> Set up Tasks</a></li>
             <!--<li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
           </ul>
         </li>

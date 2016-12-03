@@ -8,7 +8,7 @@
 			
 			<div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Manage Role</h3>
+              <h3 class="box-title">Manage Task Type</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -16,19 +16,19 @@
            
               <div class="box-body">
                 <div class="form-group">
-                  <label for="title" class="col-sm-2 control-label">Task Type Title:</label>
+                  <label for="title" class="col-sm-2 control-label">Role Title:</label>
                   <div class="col-sm-10">
-                    <input type="text" value="{{$data->tasktype_title}}" required class="form-control" name="tasktype_title" id="tasktype_title" placeholder="Title" />
+                    <input type="text" value="{{$data->role_title}}" required class="form-control" name="role_title" id="role_title" placeholder="Role Title" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="notes" class="col-sm-2 control-label">Notes:</label>
 
                   <div class="col-sm-10">
-                    <textarea  class="form-control" name="comments" id="role_notes" placeholder="Notes.">{{$data->comments}}</textarea>
+                    <textarea  class="form-control" name="role_notes" id="role_notes" placeholder="Notes.">{{$data->role_notes}}</textarea>
                   </div>
                 </div>
-				<input type="hidden" name="tasktypes_id" value="{{$data->tasktypes_id}}">
+				<input type="hidden" name="roles_id" value="{{$data->roles_id}}">
               {!! csrf_field() !!}
               </div>
               <!-- /.box-body -->
