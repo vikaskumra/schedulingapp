@@ -26,27 +26,41 @@
 			  <table id="dataTable" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="dataTable_info">
                 <thead>
                 <tr role="row">
-				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Title: activate to sort column ascending" aria-sort="descending">Title</th>
-				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending">Notes</th>
+				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="First Name: activate to sort column ascending" aria-sort="descending">First Name</th>
+				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Last Name: activate to sort column ascending">Last Name</th> 
+				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" aria-sort="descending">Email</th>
+				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Active: activate to sort column ascending">Active</th>
+				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Status</th>
 				<th class="nosort" tabindex="0"  rowspan="1" colspan="1"  >Action</th>
 				
 				</tr>
                 </thead>
                 <tbody>
          
-				
+				@foreach($teammember as $member)
                 <tr role="row" class="odd">
-                  <td class="sorting_1">abc</td>
-                  <td>def</td>
-                  <td><a href="#"><i title="edit person" class="fa fa-pencil" aria-hidden="true"></i></a> 
+                  <td class="sorting_1">{{$member->first_name}}</td>
+                  <td>{{$member->last_name}}</td>
+				  <td>{{$member->email}}</td>
+				  <td>{{$member->active}}</td>
+				  <td>@if($member->pending_invite == 0)
+				         This user is registered
+					  @else
+					  This user is not yet registered
+					  @endif</td>
+                  <td><a href="{{URL::route('editteammember', $member->id)}}"><i title="edit person" class="fa fa-pencil" aria-hidden="true"></i></a> 
                   | <a href="#"><i title="delete person" class="fa fa-trash-o" aria-hidden="true"></i></a>
                   </td>
                 </tr>
-				
+				@endforeach				
 				</tbody>  
 
                 	
-                   {{$team_members}}
+                   
+                
+                    
+				
+					   
 								
 				
                <!-- <tfoot>

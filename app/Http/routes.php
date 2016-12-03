@@ -115,6 +115,8 @@ Route::get('/users/common/footer', function(){
 
 Route::get('/mailtest', 'UserController@mailing');  
 Route::get('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup'])->name('teammember');
-Route::post('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup']);
+Route::post('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup']);  
+Route::match(['get', 'post'], 'user/editteammember/{id}', ['uses'=>'UserController@editTeammember'])
+                                  ->name('editteammember'); 
 
 
