@@ -182,9 +182,11 @@ class UserController extends Controller
 					  ->where('company_id', '=', Auth::user()->company_id)
 					  ->get();
 		   //print_r(json_encode($teammember));  
-		   $team_members = json_encode($teammember);
+		   $team_members = json_encode($teammember); 
+		    
 		
-		return view('users.teammembers')->with(['team_members'=>$team_members]);
+		return view('users.teammembers')
+		       ->with(['team_members'=>$team_members, 'teammember'=>$teammember]);
 	}  
 	
 	public function addTeammember(){  
@@ -280,7 +282,24 @@ class UserController extends Controller
 	   		
 	    
 		  
-	}	
+	     }	  
+		 
+		 public function editTeammember($id){
+			    $user = User::findOrFail($id);
+			    
+                if(!empty(Input::get('first_name'))){                
+				$user->first_name = Input::get('first_name');
+				$user->last_name =  Input::get('last_name');
+				$user->email =      Input::get('email');
+				$user->password =   Hash::make(Input::get('password'));  
+				$user->save();				   
+				return redirect('user/setupteammember');
+				}  
+				
+				else{
+					return view('users.editteammember')->with(['user'=>$user]);
+				}
+		 }
 		
 		
 		
