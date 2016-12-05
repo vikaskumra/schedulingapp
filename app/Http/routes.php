@@ -64,6 +64,7 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	Route::match(['get','post'],'user/addtasktype', ['uses'=>'TaskTypesController@addtasktype'])
 	->name('addtasktype'); 
 	Route::match(['get','post'],'user/edittasktype/{id}', ['uses'=>'TaskTypesController@edittasktype'])
+<<<<<<< HEAD
 	->name('edittasktype');
 
 	Route::get('/user/tasks', ['uses' => 'TasksController@index'])->name('setuptasks');
@@ -71,17 +72,27 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	->name('addtask'); 
 	Route::match(['get','post'],'user/edittask/{id}', ['uses'=>'TasksController@edittask'])
 	->name('edittask'); 
+=======
+	->name('edittasktype'); 
+	
+	Route::get('user/setupteammember', ['uses'=>'UserController@showTeammember'])->name('setupteammember');
+	Route::match(['get','post'],'user/addteammember', ['uses'=>'UserController@addTeammember'])
+	->name('addteammember');  
+>>>>>>> 7066d08ded9280414095c13444ddf9310c4a813f
 	
 
 
 });
+
+
 // Main Client (Owner) routes
 
 Route::get('/common/header',function(){
 	
 	return view('common/header');
 
-});
+}); 
+Route::get('/users/testmail', 'UserController@testing');
 
 Route::get('/common/footer',function(){
 	
@@ -93,7 +104,7 @@ Route::get('/common/footer',function(){
 
 
 
-Route::get('/home', 'HomeController@index');  
+Route::get('/home', 'UserController@index');  
 Route::get('/signout', ['uses'=>'UserController@logout']);  
 Route::match(['get','post'],'users/login', ['uses'=>'UserController@login'])
 ->name('login'); 
@@ -113,7 +124,11 @@ Route::get('/users/common/header', function(){
 }); 
 Route::get('/users/common/footer', function(){
 	return view('users/common/footer');
-});  
+});    
 
+
+Route::get('/mailtest', 'UserController@mailing');  
+Route::get('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup'])->name('teammember');
+Route::post('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup']);
 
 

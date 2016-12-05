@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;  
+use Illuminate\Http\Request;    
+use App\User;  
+use App\Company;
+use Auth; 
+use Illuminate\Support\Facades\Input;
 
 
 class HomeController extends Controller
@@ -23,9 +27,5 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('users.index');
-        
-    }
+    
 }

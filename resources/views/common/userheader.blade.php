@@ -297,8 +297,13 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{URL::route('setuproles')}}"><i class="fa fa-circle-o"></i> Set up Roles </a></li>
+<<<<<<< HEAD
 			      <li><a href="{{URL::route('setuptasktypes')}}"><i class="fa fa-circle-o"></i> Set up Task Types</a></li>
              <li><a href="{{URL::route('setuptasks')}}"><i class="fa fa-circle-o"></i> Set up Tasks</a></li>
+=======
+			      <li><a href="{{URL::route('setuptasktypes')}}"><i class="fa fa-circle-o"></i> Set up Task Types</a></li> 
+				  <li><a href="{{URL::route('setupteammember')}}"><i class="fa fa-circle-o"></i> Add Team Member</a></li>
+>>>>>>> 7066d08ded9280414095c13444ddf9310c4a813f
             <!--<li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
           </ul>
         </li>

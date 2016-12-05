@@ -13,7 +13,9 @@ use Hash;
 use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Facades\Redirect;
 use App\CompanyTypes;
-use App\Company; 
+use App\Company;   
+use Mail;  
+use DB;
 
 class UserController extends Controller
 {
@@ -164,5 +166,123 @@ class UserController extends Controller
 					return view('users.signup')->with(['company_type'=>$company_type]);
 			}
 			
+		}   
+
+
+
+              public function index()
+    {
+        return view('users.index');
+        
+    }  
+	
+	public function showTeammember(){  
+	      $teammember = DB::table('users')
+		              ->where('user_type', '=', 'team-member')
+					  ->where('company_id', '=', Auth::user()->company_id)
+					  ->get();
+		   //print_r(json_encode($teammember));  
+		   $team_members = json_encode($teammember);
+		
+		return view('users.teammembers')->with(['team_members'=>$team_members]);
+	}  
+	
+	public function addTeammember(){  
+	
+	    $company = Company::with('users')->where('id', '=', Auth::user()->company_id)->get();
+	      
+		if(!empty(Input::get('id'))){
+			
+		}  
+		else if(!empty(Input::get('first_name'))){  
+		   
+		 foreach($company as $comp)
+		 {
+			 $company_id =  $comp->id;
+		 }
+		 
+		 $teammember = new User;
+		 $teammember->first_name = Input::get('first_name');
+		 $teammember->last_name =  Input::get('last_name');  
+         $teammember->user_type = 'team-member';
+          $teammember->company_id = $company_id;
+          $teammember->email = Input::get('email');	
+          $teammember->pending_invite = 1;
+          $teammember->team_token = sha1(uniqid());	  
+        		 
+		 $teammember->save();    
+
+           $data =      ['email'=>$teammember->email, 
+		                 'first_name'=>$teammember->first_name,
+						 'last_name'=>$teammember->last_name,
+						 'auth_first'=>Auth::user()->first_name,
+						 'auth_last'=>Auth::user()->last_name,
+						 'team_token'=>$teammember->team_token
+						 ];		 
+		 
+		 
+		 Mail::send('/users/testmail', $data, function ($message) use($data)
+				{
+					$message->to($data['email'])->subject('SchedulingApp!');
+					
+				});
+		 
+		 
+		 
+		 
+		  return redirect('/user/setupteammember');
+		
+		
+		
 		}
+		else{
+			  return view('users.teammember')->with(['company'=>$company]);
+		}
+		   
+		
+		
+	}   
+
+
+     public function testing(){
+		 $user = User::orderBy('created_at', 'desc')->first();  	 
+         return view('/users/testmail')->with(['user'=>$user]);	 
+	 }	
+		
+	public function teammemberSignup($token){    
+	  $teammember = DB::table('users')->where('team_token', '=', $token)->get();  
+	  //var_dump($teammember);  	   
+		$team_token = $teammember[0]->team_token;
+        $first_name = Input::get('first_name');
+		$last_name =  Input::get('last_name');
+		$email =      Input::get('email');
+		$password =   Hash::make(Input::get('password'));
+	    $data = [
+	
+	     'first_name'=>$first_name,
+		 'last_name'=>$last_name,
+		 'email'=>$email,
+		 'password'=>$password,
+		 'team_token'=>'',
+		 'pending_invite'=>0
+		 ];   
+          if(!empty(Input::get('first_name'))){
+			  $update = DB::table('users')->where('team_token', '=', $token)->update($data);  
+			  return redirect('users.teammemberlogin');
+		  }		 
+         
+          else{
+			  return view('users.teammembersignup')->with(['team_token'=>$team_token]);
+		  }		 
+          
+         		 		       
+          
+	   		
+	    
+		  
+	}	
+		
+		
+		
+		
 }
