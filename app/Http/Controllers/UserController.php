@@ -13,7 +13,8 @@ use Hash;
 use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Facades\Redirect;
 use App\CompanyTypes;
-use App\Company;   
+use App\Company;
+use App\Roles;   
 use Mail;  
 use DB;
 
@@ -125,12 +126,12 @@ class UserController extends Controller
 					$postData=Input::get();
 					
 
-					$rules = ['password'=>'required|same:confpass'];
+					$rules = ['email'=>'unique:users', 'password'=>'required|same:confpass'];
 					$validation = Validator::make(Input::all(), $rules);
 				if($validation->fails())
 				{
-						//return redirect()->route('')->withErrors($validation)->withInput();
-						//	return redirect()->route('usersignup')->withErrors($validation)->withInput();
+						//return redirect()->back()->withErrors($validation)->withInput();
+							return redirect()->route('usersignup')->withErrors($validation)->withInput();
 
 						
 						$company_type = CompanyTypes::all();
@@ -148,7 +149,7 @@ class UserController extends Controller
 					$company->city =         Input::get('city');
 					$company->state =        Input::get('state');
 					$company->country =      Input::get('country');
-					$company->Phone =		Input::get('phone');   
+					$company->phone =		Input::get('phone');   
 					$company->save();
 					$user = new User;
 					$user->first_name =     Input::get('first_name');
@@ -191,7 +192,8 @@ class UserController extends Controller
 	
 	public function addTeammember(){  
 	
-	    $company = Company::with('users')->where('id', '=', Auth::user()->company_id)->get();
+	    $company = Company::with('users')->where('id', '=', Auth::user()->company_id)->get();  
+		$roles = Roles::where('company_id', '=', Auth::user()->company_id)->get();
 	      
 		if(!empty(Input::get('id'))){
 			
@@ -210,7 +212,8 @@ class UserController extends Controller
           $teammember->company_id = $company_id;
           $teammember->email = Input::get('email');	
           $teammember->pending_invite = 1;
-          $teammember->team_token = sha1(uniqid());	  
+          $teammember->team_token = sha1(uniqid());	
+          $teammember->user_roleid = Input::get('user_roles');		  
         		 
 		 $teammember->save();    
 
@@ -238,7 +241,7 @@ class UserController extends Controller
 		
 		}
 		else{
-			  return view('users.teammember')->with(['company'=>$company]);
+			  return view('users.teammember')->with(['company'=>$company, 'roles'=>$roles]);
 		}
 		   
 		
@@ -267,16 +270,30 @@ class UserController extends Controller
 		 'password'=>$password,
 		 'team_token'=>'',
 		 'pending_invite'=>0
-		 ];   
-          if(!empty(Input::get('first_name'))){
+		 ];     
+		 $rules = ['password'=>'required|same:confpass'];
+		 $validator = Validator::make(Input::all(), $rules);
+		 
+		 
+		
+		 
+          if(!empty(Input::get('first_name'))){  
+		        if($validator->fails())
+		 {
+			 return Redirect::back()->withErrors($validator)->withInput();
+		 }
+		    else{
+		  
 			  $update = DB::table('users')->where('team_token', '=', $token)->update($data);  
-			  return redirect('users.teammemberlogin');
-		  }		 
+			  return redirect('user/teamlogin');
+		       }		
+		  }		  
          
           else{
 			  return view('users.teammembersignup')->with(['team_token'=>$team_token]);
 		  }		 
           
+		 
          		 		       
           
 	   		
@@ -285,20 +302,37 @@ class UserController extends Controller
 	     }	  
 		 
 		 public function editTeammember($id){
-			    $user = User::findOrFail($id);
-			    
-                if(!empty(Input::get('first_name'))){                
+			    $user = User::findOrFail($id);  
+				$rules = ['password'=>'required|same:confpass'];
+				$validator = Validator::make(Input::all(), $rules);
+				$Roles = new Roles;
+                 $userrole_title = $Roles->getRoleTitle($user->user_roleid);				              
+				if(!empty(Input::get('first_name'))){                
 				$user->first_name = Input::get('first_name');
 				$user->last_name =  Input::get('last_name');
 				$user->email =      Input::get('email');
-				$user->password =   Hash::make(Input::get('password'));  
+				if(!empty(Input::get('password')))
+				{
+				  $user->password =   Hash::make(Input::get('password'));  
+				}
+				if($validator->fails())
+				{
+					return Redirect::back()->withErrors($validator)->withInput(); 
+				}
+				else{
 				$user->save();				   
 				return redirect('user/setupteammember');
+				}
 				}  
 				
 				else{
-					return view('users.editteammember')->with(['user'=>$user]);
+					return view('users.editteammember')->with(['user'=>$user, 'userrole_title'=>$userrole_title]);
 				}
+		 }  
+		 
+		 
+		 public function teamLogin(){
+			 return view('users.teammemberlogin');
 		 }
 		
 		

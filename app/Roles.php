@@ -11,7 +11,6 @@ class Roles extends Model
     protected $primaryKey = 'roles_id';
     function getRoles($roleid='')
     {  
-<<<<<<< HEAD
             if(Auth::user()->user_type == 'superadmin'){
             if(!empty($roleid))
                 {
@@ -48,7 +47,6 @@ class Roles extends Model
     function deleteRole($roleId)
     {
        // DB::table('roles')->where('')
-=======
 	  if(Auth::user()->user_type == 'superadmin'){
 		if(!empty($roleid))
         {
@@ -80,6 +78,22 @@ class Roles extends Model
 	   }
         
         
->>>>>>> 7066d08ded9280414095c13444ddf9310c4a813f
-    }
+
+    }  
+	
+	
+	function getRoleTitle($userrole_id){
+		$role = Roles::where('roles_id', '=', $userrole_id)->where('company_id', '=', Auth::user()->company_id)->get();
+		  
+		 $role_new = json_encode($role);   
+		 
+		 foreach($role as $title)
+		 {
+			 $role_title = $title->role_title;
+		 }
+		 
+		 return $role_title;
+	
+	
+	}
 }

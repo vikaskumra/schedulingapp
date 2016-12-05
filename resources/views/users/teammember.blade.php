@@ -25,6 +25,16 @@
                   </select>
 				  </div>
                 </div>
+				<div class="form-group">
+                  <label for="user_roles" class="col-sm-2 control-label">User role</label>
+                  <div class="col-sm-10">
+				  <select name="user_roles" id="user_roles" class="form-control">
+				    @foreach($roles as $role)
+                    <option value="{{$role->roles_id}}">{{$role->role_title}}</option>
+					@endforeach
+                  </select>
+				  </div>
+                </div>
                 <div class="form-group">
                   <label for="first_name" class="col-sm-2 control-label">First Name:</label>
                   <div class="col-sm-10">

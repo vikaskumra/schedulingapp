@@ -49,7 +49,7 @@
                                     <i class="fa fa-search"></i>
                                 </form>
                            </div>
-						   <a href="{{URL::to('users/login')}}">Login</a>|<a href="{{URL::to('users/signup')}}">Signup</a>
+						   <a href="{{URL::to('users/login')}}">Login</a>|<a href="{{URL::to('user/signup')}}">Signup</a>
                        </div>
                     </div>
 					

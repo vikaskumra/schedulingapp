@@ -1,117 +1,180 @@
 @include('/users/common/header')  
 <style>
-form * {
-    border-radius:0 !important;
-}
 
-form > fieldset > legend {
-    font-size:120%;
-}  
-.container{
-	    margin-top: 20px;
-    margin-bottom: 20px;
-}
+ .mycolor{
+            color : #008000;
+        }        
+        .myborder{
+            padding: 20px;;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: 0px 0px 3px 0px #72c02c;
+            -moz-box-shadow:    0px 0px 3px 0px #72c02c;
+            box-shadow:         0px 0px 3px 0px #72c02c;
+        }
+        .mybutton{
+            position: relative;
+            left: 50%;
+            top: 193px;
+
+        }
+        .margin-bottom-20 {
+            margin-bottom: 20px;
+
+        }
+        .btn-u:hover {
+            background: #5fb611;
+        }
+        .btn-u:hover, .btn-u:focus, .btn-u:active, .btn-u.active, .open .dropdown-toggle.btn-u {
+            background: #ffffff;  
+			border:1px solid #008000;
+        }
+        .btn-u:hover {
+            color: #008000;
+            text-decoration: none;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-u {
+            background: #72c02c;
+        }
+        .btn-u {
+            white-space: nowrap;
+            border: 0;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 400;
+            padding: 6px 13px;
+            position: relative;
+            background: #008000;
+            display: inline-block;
+            text-decoration: none; 
+			border:1px solid #008000;
+        }
+        .input-group-addon {
+            border-right: 0;
+            /*color: #b3b3b3;*/
+            font-size: 14px;
+            background: #fff;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .input-group .form-control {
+            float: left;
+            width: 100%;
+            margin-bottom: 0;
+        }
+        .form-control {
+            box-shadow: none;
+        }
+        .form-control {
+            display: block;
+            width: 100%;
+            height: 34px !important;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid  #008000; !important;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
 </style>
-<div class="container">
-        <div class="row">
-
-            <div class="col-md-8 col-md-offset-2">
-                <form role="form" method="POST" action="">
-
-                    <legend class="text-center">Register</legend>
-
-                    <fieldset>
-                        <legend>Personal Details</legend>
-
-                        <div class="form-group col-md-6">
-                            <label for="first_name">First name</label>
-                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" required />
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="last_name">Last name</label>
-                            <input type="text" class="form-control" name="last_name" id="" placeholder="Last Name" required />
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <label for="">Email</label>
-                            <input type="email" class="form-control" name="email" id="" placeholder="Email" required  />
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required />
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="confirm_password">Confirm Password</label>
-                            <input type="password" class="form-control" name="confpass" id="confirm_password" placeholder="Confirm Password" required/>
-                        </div>
-
-
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Company Details</legend>
-
-                        <div class="form-group col-md-6">
-                            <label for="company_name">Company name</label>
-                            <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company Name" required/>
-                        </div>
-						
-						<div class="form-group col-md-6">
-                            <label for="company_type">Company Type</label>
-                            <select name="company_type" class="form-control"  id="company_type" required>
-                                @foreach($company_type as $type)
+	
+	
+	
+	<div class="container">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+	   <form role="form" method="POST" action="">
+	   {!! csrf_field() !!}
+         <div class="row myborder">
+             <h4 style="color: #7EB59E; margin: initial; margin-bottom: 10px;">Personal Details</h4><hr>
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope mycolor"></i></span>
+                <input size="80" maxlength="255" class="form-control" placeholder="Email" value="{{old('email')}}" name="email" id="email" type="email" required />    
+          
+				</div>  
+				<span>
+			   @if($errors->has('email'))
+			   {{$errors->first('email')}} 
+		      @endif	   
+			</span>
+				
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Password" name="password" id="password" type="password" required />                                    </div>
+			<span>
+			   @if($errors->has('password'))
+			   {{$errors->first('password')}} 
+		      @endif	   
+			</span>
+			<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Confirm Password" name="confpass" id="confpass" type="password" required />                                    </div>	
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="First Name" value="{{old('first_name')}}" name="first_name" id="first_name" type="text" required />                                    </div>
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Last Name" value="{{old('last_name')}}" name="last_name" id="last_name" type="text" required />                                    </div>
+            
+            <!--<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-phone mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Contact Number" name="UserRegistration[contactnumber]" id="UserRegistration_contactnumber" type="text">                                    </div>-->
+            <h4 style="color: #7EB59E; margin: initial; margin-bottom: 10px;margin-top:50px;">Company Details</h4><hr>
+			<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Company Name" value="{{old('company_name')}}" name="company_name" id="company_name" type="text" required />                                    </div>
+				<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+				<select name="company_type" class="form-control" required />
+				  @foreach($company_type as $type)
 								<option value="{{$type->id}}">{{$type->company_type}}</option>      
-                                @endforeach								
-                            </select>
-                        </div>
-						<div class="form-group col-md-12">
-                            <label for="company_name">Address</label>
-                            <input type="text" class="form-control" name="address" id="address" placeholder="Address" required />
-                        </div>  
-						<div class="form-group col-md-6">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" name="city" id="city" placeholder="City" required />
-                        </div>
-						<div class="form-group col-md-6">
-                            <label for="state">State</label>
-                            <input type="text" class="form-control" name="state" id="state" placeholder="State" required />
-                        </div>
-						<div class="form-group col-md-6">
-                            <label for="country">Country</label>
-                            <select class="form-control" name="country" id="country" placeholder="Country" required >
-                                <option id="us">U.S.A</option>
-                            </select>
-
-                        </div>
-						<div class="form-group col-md-6">
-                            <label for="phone">Phone</label>
-                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone" required />
-                        </div>
-						
-
-                        
-
-                        
-
-                    </fieldset>
-
-                   
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">
-                                Register
-                            </button>
-                          
-                        </div>
-                    </div>
-                       {!! csrf_field() !!}
-                </form>
+                                @endforeach
+				</select>
+                                               </div>
+				<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-home mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Address" value="{{old('address')}}" name="address" id="address" type="text" required />                                    </div>
+				<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-globe mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="City" value="{{old('city')}}" name="city" id="city" type="text" required />                                    </div>
+				<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-globe mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="State" value="{{old('state')}}" name="state" id="state" type="text" required />                                    </div>
+				<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-globe mycolor"></i></span>
+                <select name="country" class="form-control" required />
+				  <option>Usa</option>
+				</select>
+				                                    </div>
+				<div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-phone mycolor"></i></span>
+                <input size="60" maxlength="255" class="form-control" placeholder="Phone" value="{{old('phone')}}" name="phone" id="phone" type="phone" required />                                    </div>
+			<div class="row">
+                <div class="col-md-12">
+                    <button class="btn-u pull-left" type="submit">Sign Up</button>
+                </div>
             </div>
-
         </div>
+        <div class="col-md-2"></div>
+	   </form>
     </div>
+      </div>
 @include('users/common/footer')

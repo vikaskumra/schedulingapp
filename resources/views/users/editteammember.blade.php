@@ -34,16 +34,33 @@
                     <input type="email" value="{{$user->email}}" required class="form-control" name="email" id="email" placeholder="Email" />
                   </div>
                 </div>  
+				<div class="form-group">
+                  <label for="user_role" class="col-sm-2 control-label">User role:</label>
+                  <div class="col-sm-10">
+                    
+					<input type="text" value="{{$userrole_title}}" required class="form-control" name="user_role" id="user_role" disabled />
+                    
+				  </div>
+                </div>
+               	  
+                 
+				
                  <div class="form-group">
                   <label for="password" class="col-sm-2 control-label">Password:</label>
                   <div class="col-sm-10">
-                    <input type="password" value="" required class="form-control" name="password" id="password" placeholder="" />
+                    <input type="password" value=""  class="form-control" name="password" id="password" placeholder="" />
+					<span>@foreach($errors->all() as $error)
+					           {{$error}}
+						  @endforeach
+					</span>
                   </div>
                 </div>
+				
+				
                 <div class="form-group">
                   <label for="confpass" class="col-sm-2 control-label">Confirm Password:</label>
                   <div class="col-sm-10">
-                    <input type="password" value="" required class="form-control" name="confpass" id="confpass" placeholder="" />
+                    <input type="password" value=""  class="form-control" name="confpass" id="confpass" placeholder="" />
                   </div>
                 </div>  				
 				<input type="hidden" name="roles_id" value="">

@@ -39,8 +39,14 @@ form > fieldset > legend {
 
                         <div class="form-group col-md-6">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required />
-                        </div>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required />  
+							<span>
+							   @foreach($errors->all() as $error)
+						{{$error}}
+						@endforeach
+							</span>
+                        </div>  
+						
 
                         <div class="form-group col-md-6">
                             <label for="confirm_password">Confirm Password</label>

@@ -64,7 +64,6 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	Route::match(['get','post'],'user/addtasktype', ['uses'=>'TaskTypesController@addtasktype'])
 	->name('addtasktype'); 
 	Route::match(['get','post'],'user/edittasktype/{id}', ['uses'=>'TaskTypesController@edittasktype'])
-<<<<<<< HEAD
 	->name('edittasktype');
 
 	Route::get('/user/tasks', ['uses' => 'TasksController@index'])->name('setuptasks');
@@ -72,13 +71,11 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	->name('addtask'); 
 	Route::match(['get','post'],'user/edittask/{id}', ['uses'=>'TasksController@edittask'])
 	->name('edittask'); 
-=======
-	->name('edittasktype'); 
 	
 	Route::get('user/setupteammember', ['uses'=>'UserController@showTeammember'])->name('setupteammember');
 	Route::match(['get','post'],'user/addteammember', ['uses'=>'UserController@addTeammember'])
 	->name('addteammember');  
->>>>>>> 7066d08ded9280414095c13444ddf9310c4a813f
+
 	
 
 
@@ -131,6 +128,7 @@ Route::get('/mailtest', 'UserController@mailing');
 Route::get('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup'])->name('teammember');
 Route::post('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup']);  
 Route::match(['get', 'post'], 'user/editteammember/{id}', ['uses'=>'UserController@editTeammember'])
-                                  ->name('editteammember'); 
+                                  ->name('editteammember');   
+Route::get('/user/teamlogin', 'UserController@teamLogin');								  
 
 
