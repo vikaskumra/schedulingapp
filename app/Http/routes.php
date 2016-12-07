@@ -89,6 +89,12 @@ Route::get('/common/header',function(){
 	return view('common/header');
 
 }); 
+
+Route::get('/common/rightsidebar',function(){
+	
+	return view('common/rightsidebar');
+
+}); 
 Route::get('/users/testmail', 'UserController@testing');
 
 Route::get('/common/footer',function(){

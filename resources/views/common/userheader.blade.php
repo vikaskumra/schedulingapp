@@ -470,7 +470,7 @@
   <div class="container-fluid">
 
     <ul class="nav navbar-nav">
-      <li><a class="image_icons" href="#"><img src="{{asset('assets/images/dashboard_icon.png')}}"><small>Dashboard</small></a><div class="arrow"></div></li>
+      <li><a class="image_icons" href="{{URL::route('userdashboard')}}"><img src="{{asset('assets/images/dashboard_icon.png')}}"><small>Dashboard</small></a><div class="arrow"></div></li>
       <li><a class="image_icons" href="#"><img src="{{asset('assets/images/message_icon.png')}}"><small>Messages</small></a><div class="arrow"></div></li>
       <li><a class="image_icons" href="{{URL::route('setuproles')}}"><img src="{{asset('assets/images/roles_icon.png')}}"><small>Roles</small></a><div class="arrow"></div></li>
       <li><a class="image_icons" href="{{URL::route('setuptasks')}}"><img src="{{asset('assets/images/tasks_icon.png')}}"><small>Tasks</small></a><div class="arrow"></div></li>

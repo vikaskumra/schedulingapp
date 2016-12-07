@@ -30,6 +30,6 @@
   
 </head>
 <body class="hold-transition {{Request::route()->getName()}}-page skin-blue sidebar-mini">  
-<div class="{{Request::route()->getName()}}" id="pageId">{{Request::route()->getName()}}</div>
+<!--<div class="{{Request::route()->getName()}}" id="pageId">{{Request::route()->getName()}}</div>-->
 <div class="wrapper">
 
