@@ -35,7 +35,7 @@
 
 <p>To access your account and get busy, you will first need to set up your profile.</p>
 
-<p><a href="http://localhost:8000/user/security/token/{{$team_token}}" target="_blank">Click here to complete your registration.</a></p>
+<p><a href="http://scheduling.w3sols.com/user/security/token/{{$team_token}}" target="_blank">Click here to complete your registration.</a></p>
 
 <p>We hope Schedulingapp works well for you. If you have any questions once you are underway, please let us know.</p>
 

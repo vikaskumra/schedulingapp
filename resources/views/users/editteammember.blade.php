@@ -37,9 +37,9 @@
 				<div class="form-group">
                   <label for="user_role" class="col-sm-2 control-label">User role:</label>
                   <div class="col-sm-10">
-                    
+                       
 					<input type="text" value="{{$userrole_title}}" required class="form-control" name="user_role" id="user_role" disabled />
-                    
+                   
 				  </div>
                 </div>
                	  

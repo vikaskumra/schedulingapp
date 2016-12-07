@@ -213,9 +213,21 @@ class UserController extends Controller
           $teammember->email = Input::get('email');	
           $teammember->pending_invite = 1;
           $teammember->team_token = sha1(uniqid());	
-          $teammember->user_roleid = Input::get('user_roles');		  
+          $teammember->user_roleid = implode(",", Input::get('user_roles'));	  
+           $user_roles_id = Input::get('user_roles'); 
+           $teammember->save();		   
+		   foreach($user_roles_id as $id){
+			   $user_roles_id = ['role_id'=> $id,
+                    			   'auth_id'=>Auth::user()->id,
+   								   'company_id'=>Auth::user()->company_id,
+								   'user_id'=>$teammember->id ];  
+      								   
+			  DB::table('user_roles')->insert($user_roles_id);
+		   } 
+		   
+          		   
         		 
-		 $teammember->save();    
+		 
 
            $data =      ['email'=>$teammember->email, 
 		                 'first_name'=>$teammember->first_name,
@@ -235,7 +247,7 @@ class UserController extends Controller
 		 
 		 
 		 
-		  return redirect('/user/setupteammember');
+		  return redirect('/user/setupteammember');  
 		
 		
 		
@@ -303,10 +315,24 @@ class UserController extends Controller
 		 
 		 public function editTeammember($id){
 			    $user = User::findOrFail($id);  
-				$rules = ['password'=>'required|same:confpass'];
-				$validator = Validator::make(Input::all(), $rules);
-				$Roles = new Roles;
-                 $userrole_title = $Roles->getRoleTitle($user->user_roleid);				              
+				$rules = ['password'=>'same:confpass'];
+				$validator = Validator::make(Input::all(), $rules);  
+				$user_all_roles = DB::table('user_roles')
+				                  ->where('user_id', '=', $user->id)
+								  ->where('company_id','=', $user->company_id)->get();  
+					$userrole_title = array();
+					
+					foreach($user_all_roles as $role)
+					{
+						 $role->role_id;  
+						$Roles = new Roles;
+						$userrole_title[] = $Roles->getRoleTitle($role->role_id);    
+						
+                        						
+					}  
+					$userrole_title = implode(",",$userrole_title );
+					
+						              
 				if(!empty(Input::get('first_name'))){                
 				$user->first_name = Input::get('first_name');
 				$user->last_name =  Input::get('last_name');

@@ -98,7 +98,15 @@ class RolesController extends Controller
 
             $rolesO = $rolesObj->getRoles(Input::get('roles_id'));
             $rolesO->role_title = Input::get('role_title');
-            $rolesO->role_notes = Input::get('role_notes');
+            $rolesO->role_notes = Input::get('role_notes');   
+            if(Input::get('communication') != ''){
+				    $rolesO->communication = Input::get('communication');
+			     }	
+              else{
+				  $rolesO->communication = 0;
+			  }				 
+			
+			
             $rolesO->save();
          
          }
@@ -108,8 +116,12 @@ class RolesController extends Controller
                
                $rolesObj->role_title = Input::get('role_title');
                $rolesObj->role_notes = Input::get('role_notes');
-               $rolesObj->company_id = Auth::user()->company_id;
-               $rolesObj->save();    
+               $rolesObj->company_id = Auth::user()->company_id;  
+			     
+			   if(Input::get('communication') != ''){
+				    $rolesObj->communication = Input::get('communication');
+			     }  
+			   $rolesObj->save();    
 
                 /* Insert Roles Tasks Mapping Again */
                 $roletasks=Input::get('roletasks');

@@ -15,7 +15,11 @@
 
 <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/app.min.js')}}"></script>
+<script src="{{asset('assets/js/app.min.js')}}"></script>  
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
 
 <script>
   $(function () {
@@ -35,7 +39,15 @@
   });
   $(".btn-back").on("click",function(){
 		window.history.back();
+	});  
+	
+	
+	$(".right_nav_button").on("click", function(){  
+	      
+		$(".quick_slide_right").toggle( "slide" , {direction:"right"}, 1000);
 	});
+	
+	        
 		
 </script>
 

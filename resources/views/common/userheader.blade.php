@@ -277,7 +277,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
+      <div class="user-panel" style="color:#ffffff">
        
         <div class="pull-left">
         <p>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</p> 
@@ -352,14 +352,15 @@
     <!-- Main content -->
     <section class="content">
       <!-- Info boxes -->
-      <div class="row">
+      <div class="row" style="display:none">
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+          <div class="info-box">  
+		     
+            <span class="info-box-icon bg-aqua"><img src="{{asset('assets/images/dashboard_icon.png')}}"></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Open Jobs</span>
-              <span class="info-box-number">10</span>
+              <span class="info-box-text">Dashboard</span>
+              
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -368,11 +369,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+            <span class="info-box-icon bg-red"><img src="{{asset('assets/images/message_icon.png')}}"></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">In Progress</span>
-              <span class="info-box-number">5</span>
+              <span class="info-box-text">Messages</span>
+              
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -385,11 +386,11 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+            <span class="info-box-icon bg-green"><img src="{{asset('assets/images/roles_icon.png')}}"></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Completed</span>
-              <span class="info-box-number">50</span>
+              <span class="info-box-text">Roles</span>
+              
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -398,11 +399,64 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+            <span class="info-box-icon bg-yellow"><img src="{{asset('assets/images/tasks_icon.png')}}"></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Awaiting Approval</span>
-              <span class="info-box-number">1</span>
+              <span class="info-box-text">Tasks</span>
+              
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>  
+		
+		
+		<div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><img src="{{asset('assets/images/pendingtasks_icon.png')}}"></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Awaiting Tasks</span>
+              
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div> 
+		
+		<div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><img src="{{asset('assets/images/members_icon.png')}}"></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Members</span>
+              
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>  
+		
+		<div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><img src="{{asset('assets/images/activities_icon.png')}}"></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Activities</span>
+       
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>  
+		
+		<div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><img src="{{asset('assets/images/settings_icon.png')}}"></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Settings</span>
+        
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -410,4 +464,20 @@
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->
+      <!-- /.row -->     
+	  
+	  <nav class="navbar navbar-default icon_menu">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav">
+      <li><a class="image_icons" href="#"><img src="{{asset('assets/images/dashboard_icon.png')}}"><small>Dashboard</small></a><div class="arrow"></div></li>
+      <li><a class="image_icons" href="#"><img src="{{asset('assets/images/message_icon.png')}}"><small>Messages</small></a><div class="arrow"></div></li>
+      <li><a class="image_icons" href="{{URL::route('setuproles')}}"><img src="{{asset('assets/images/roles_icon.png')}}"><small>Roles</small></a><div class="arrow"></div></li>
+      <li><a class="image_icons" href="{{URL::route('setuptasks')}}"><img src="{{asset('assets/images/tasks_icon.png')}}"><small>Tasks</small></a><div class="arrow"></div></li>
+	  <li><a class="image_icons" href="#"><img src="{{asset('assets/images/pendingtasks_icon.png')}}"><small>Pending Tasks</small></a><div class="arrow"></div></li>
+      <li><a class="image_icons" href="{{URL::route('setupteammember')}}"><img src="{{asset('assets/images/members_icon.png')}}"><small>Members</small></a><div class="arrow"></div></li>
+      <li><a class="image_icons" href="#"><img src="{{asset('assets/images/activities_icon.png')}}"><small>Activities</small></a><div class="arrow"></div></li>
+      <li><a  class="image_icons" href="#"><img src="{{asset('assets/images/settings_icon.png')}}"><small>Settings</small></a><div class="arrow"></div></li>
+    </ul>
+  </div>  
+</nav>

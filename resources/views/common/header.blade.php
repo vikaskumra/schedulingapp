@@ -15,6 +15,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{URL::asset('assets/css/AdminLTE.css')}}">
   <link rel="stylesheet" href="{{URL::asset('assets/css/dataTables.bootstrap.css')}}">
+  <link rel="stylesheet" href="{{URL::asset('assets/css/skin-blue.css')}}">
+  <link rel="stylesheet" href="{{URL::asset('assets/css/style.css')}}">
 	
   <!-- iCheck -->
   <!--<link rel="stylesheet" href="{{URL::asset('assets/css/blue.css')}}">
@@ -24,8 +26,10 @@
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <![endif]-->  
+  
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition {{Request::route()->getName()}}-page skin-blue sidebar-mini">  
+<div class="{{Request::route()->getName()}}" id="pageId">{{Request::route()->getName()}}</div>
 <div class="wrapper">
 

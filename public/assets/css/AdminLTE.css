@@ -2050,19 +2050,18 @@ a:focus {
   border-bottom-left-radius: 2px;
   display: block;
   float: left;
-  height: 90px;
-  width: 90px;
+  height: 50px;
+  width: 50px;
   text-align: center;
   font-size: 45px;
-  line-height: 90px;
-  background: rgba(0, 0, 0, 0.2);
+  background: #ffffff;
 }
 .info-box-icon > img {
   max-width: 100%;
 }
 .info-box-content {
   padding: 5px 10px;
-  margin-left: 90px;
+  margin-left: 50px;
 }
 .info-box-number {
   display: block;

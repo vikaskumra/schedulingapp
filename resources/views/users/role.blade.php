@@ -43,7 +43,17 @@
                     @endif 
                    @endforeach
                   </div>
-                </div>
+                </div>  
+				<div class="form-group">
+                  <label for="communication" class="col-sm-2 control-label">External Communication:</label>
+
+                  <div class="col-sm-10">     
+                       <input  type="checkbox" <?php if($data->communication == 1){ echo "checked";} ?> id= "communication" name="communication" id="" value="1" /> 
+                                   
+					                     
+                  </div>
+                </div> 
+				
   
                 
 				<input type="hidden" name="roles_id" value="{{$data->roles_id}}">
