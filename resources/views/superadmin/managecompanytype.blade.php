@@ -19,17 +19,17 @@
                   <label for="companyType" class="col-sm-2 control-label">Type:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$data->company_type}}" required class="form-control" name="company_type" id="companyType" placeholder="Company Type">
+                    <input type="text" value="{{$data->trade_title}}" required class="form-control" name="trade_title" id="companyType" placeholder="Trade">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="notes" class="col-sm-2 control-label">Notes:</label>
 
                   <div class="col-sm-10">
-                    <textarea  class="form-control" name="type_note" id="notes" placeholder="Notes.">{{$data->type_note}}</textarea>
+                    <textarea  class="form-control" name="trade_notes" id="notes" placeholder="Notes.">{{$data->trade_notes}}</textarea>
                   </div>
                 </div>
-				<input type="hidden" name="id" value="{{$data->id}}">
+				<input type="hidden" name="id" value="{{$data->trade_id}}">
               {!! csrf_field() !!}
               </div>
               <!-- /.box-body -->

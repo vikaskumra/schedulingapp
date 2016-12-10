@@ -25,12 +25,17 @@
                   </div>
                 </div>                  
 				<div class="form-group">
-                  <label for="companyType" class="col-sm-2 control-label">Select</label>
+				  <label for="companyType" class="col-sm-2 control-label">Trades</label>
                   <div class="col-sm-10">
-				  <select required name="company_type" class="form-control">
+				  <select multiple required name="company_trade[]" class="form-control">
 				 
-            @foreach($companytypes as $companytype)
-					    <option value="{{$companytype->id}}" @if($companytype->id==$company->company_type) selected @endif >{{$companytype->company_type}}</option>  
+					@foreach($trades as $trade)
+					    <option <?php 
+							if(in_array($trade->trade_id, $company_trades ))
+							{
+								  echo 'selected';
+							}
+						?> value="{{$trade->trade_id}}"  >{{$trade->trade_title}}</option>  
 				  	@endforeach
                   </select>
                 </div>

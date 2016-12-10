@@ -33,12 +33,13 @@
 				</tr>
                 </thead>
                 <tbody>
-         
-				@foreach($companytypes as $companytype)
+				
+				
+				@foreach($trades as $trade)
                 <tr role="row" class="odd">
-                  <td class="sorting_1">{{$companytype->company_type}}</td>
-                  <td>{{$companytype->type_note}}</td>
-                  <td><a href="/superadmin/managecompanytype/{{$companytype->id}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> | <a href="/superadmin/removecompanytype/{{$companytype->id}}"><i title="delete" class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                  <td class="sorting_1">{{$trade->trade_title}}</td>
+                  <td>{{$trade->trade_notes}}</td>
+                  <td><a href="/superadmin/managecompanytype/{{$trade->trade_id}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> | <a href="/superadmin/removecompanytype/{{$trade->trade_id}}"><i title="delete" class="fa fa-trash-o" aria-hidden="true"></i></a></td>
                 </tr>
 				@endforeach
 				</tbody>

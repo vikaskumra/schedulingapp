@@ -303,7 +303,10 @@
 
 			   
 
-				  <li><a href="{{URL::route('setupteammember')}}"><i class="fa fa-circle-o"></i> Set up Team</a></li>
+				  <li><a href="{{URL::route('setupteammember')}}"><i class="fa fa-circle-o"></i> Set up Team</a></li> 
+				   <li><a href="{{URL::route('setupjobs')}}"><i class="fa fa-circle-o"></i> Set up Jobs</a></li>
+				   <li><a href="{{URL::route('managecustomers')}}"><i class="fa fa-circle-o"></i> Manage Customers</a></li>
+				   <li><a href="{{URL::route('viewcontacts')}}"><i class="fa fa-circle-o"></i> All Contacts</a></li>
 
 				  
 
@@ -470,12 +473,12 @@
   <div class="container-fluid">
 
     <ul class="nav navbar-nav">
-      <li><a class="image_icons" href="{{URL::route('userdashboard')}}"><img src="{{asset('assets/images/dashboard_icon.png')}}"><small>Dashboard</small></a><div class="arrow"></div></li>
+      <li><a id="userdashboard" class="image_icons" href="{{URL::route('userdashboard')}}"><img src="{{asset('assets/images/dashboard_icon.png')}}"><small>Dashboard</small></a><div class="arrow"></div></li>
       <li><a class="image_icons" href="#"><img src="{{asset('assets/images/message_icon.png')}}"><small>Messages</small></a><div class="arrow"></div></li>
-      <li><a class="image_icons" href="{{URL::route('setuproles')}}"><img src="{{asset('assets/images/roles_icon.png')}}"><small>Roles</small></a><div class="arrow"></div></li>
-      <li><a class="image_icons" href="{{URL::route('setuptasks')}}"><img src="{{asset('assets/images/tasks_icon.png')}}"><small>Tasks</small></a><div class="arrow"></div></li>
+      <li><a id="setuproles" class="image_icons" href="{{URL::route('setuproles')}}"><img src="{{asset('assets/images/roles_icon.png')}}"><small>Roles</small></a><div class="arrow"></div></li>
+      <li><a id="setuptasks" class="image_icons" href="{{URL::route('setuptasks')}}"><img src="{{asset('assets/images/tasks_icon.png')}}"><small>Tasks</small></a><div class="arrow"></div></li>
 	  <li><a class="image_icons" href="#"><img src="{{asset('assets/images/pendingtasks_icon.png')}}"><small>Pending Tasks</small></a><div class="arrow"></div></li>
-      <li><a class="image_icons" href="{{URL::route('setupteammember')}}"><img src="{{asset('assets/images/members_icon.png')}}"><small>Members</small></a><div class="arrow"></div></li>
+      <li><a id="setupteammember" class="image_icons" href="{{URL::route('setupteammember')}}"><img src="{{asset('assets/images/members_icon.png')}}"><small>Members</small></a><div class="arrow"></div></li>
       <li><a class="image_icons" href="#"><img src="{{asset('assets/images/activities_icon.png')}}"><small>Activities</small></a><div class="arrow"></div></li>
       <li><a  class="image_icons" href="#"><img src="{{asset('assets/images/settings_icon.png')}}"><small>Settings</small></a><div class="arrow"></div></li>
     </ul>

@@ -141,14 +141,29 @@
 			<div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
                 <input size="60" maxlength="255" class="form-control" placeholder="Company Name" value="{{old('company_name')}}" name="company_name" id="company_name" type="text" required />                                    </div>
-				<div class="input-group margin-bottom-20">
+				<div style="display:none" class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
-				<select name="company_type" class="form-control" required />
+				<select name="company_type" class="form-control" >
+			
 				  @foreach($company_type as $type)
-								<option value="{{$type->id}}">{{$type->company_type}}</option>      
+								<option selected value="{{$type->id}}">{{$type->company_type}}</option>      
                                 @endforeach
 				</select>
-                                               </div>
+                                               </div>  
+											   
+				<div class="input-group">
+				   <label for="trade">Select Trades</label>
+				</div>
+				<div class="input-group margin-bottom-20">
+				
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user mycolor"></i></span>
+				<select style="height: 70px !important;" multiple name="trade[]" class="form-control" required >
+	
+				  @foreach($trades as $trade)
+								<option value="{{$trade->trade_id}}">{{$trade->trade_title}}</option>      
+                                @endforeach
+				</select>
+                                               </div>							   
 				<div class="input-group margin-bottom-20">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-home mycolor"></i></span>
                 <input size="60" maxlength="255" class="form-control" placeholder="Address" value="{{old('address')}}" name="address" id="address" type="text" required />                                    </div>

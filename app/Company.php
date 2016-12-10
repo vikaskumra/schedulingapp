@@ -21,17 +21,12 @@ class Company extends Model
 	 	 	  })->get();  
 			 */
 			 $clients=DB::table('companies')
-			 ->join('company_types', 'companies.company_type', '=', 'company_types.id')
-			 ->join('users', 'companies.id', '=', 'users.company_id')
-			 ->select('companies.id',
-			 		 'companies.company_name', 
-					  'company_types.company_type',
-					  'users.first_name',
-					  'users.last_name',
-					  'users.email')
-
+         	  ->join('users', 'companies.id', '=', 'users.company_id')
 			 ->where('users.user_type','=',$value)
-			 ->get();
+			 ->get();    
+			// dd($clients);
+			// exit;
+			 
 			 	return $clients;
 	}
 

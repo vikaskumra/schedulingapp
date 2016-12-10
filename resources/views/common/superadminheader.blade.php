@@ -296,7 +296,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{URL::to('/superadmin/companytypes')}}"><i class="fa fa-circle-o"></i> Add/Edit Company Types</a></li>
+            <li><a href="{{URL::to('/superadmin/companytypes')}}"><i class="fa fa-circle-o"></i> Add/Edit Trade</a></li>
 			<li><a href="{{URL::to('/superadmin/clients')}}"><i class="fa fa-circle-o"></i> Add/Edit Clients</a></li>
             <!--<li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
           </ul>

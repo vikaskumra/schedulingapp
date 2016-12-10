@@ -25,7 +25,8 @@
                 <thead>
                 <tr role="row">
 				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Title: activate to sort column ascending" aria-sort="descending">Company Name</th>
-				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending">Type</th>
+				<!--<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending">Trade</th>
+				-->
 				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Title: activate to sort column ascending" aria-sort="descending">First Name</th>
 				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending">Last Name</th>
 				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Notes: activate to sort column ascending">Email</th>
@@ -34,17 +35,18 @@
 				
 				</tr>
                 </thead>
-                <tbody>
+                <tbody>  
+				
 				@foreach($clients as $client)
 				<tr role="row" class="odd">
 				   <td class="sorting_1">{{$client->company_name}}</td>
-				   <td>{{$client->company_type}}</td>
 				   
 				   <td>{{$client->first_name}}</td>
 				   <td>{{$client->last_name}}</td>
 				   <td>{{$client->email}}</td> 
 				   
-				   <td><a href="/superadmin/manageclients/{{$client->id}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> | <a href="/superadmin/removeclients/{{$client->id}}"><i title="delete" class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+				   <td><a href="/superadmin/manageclients/{{$client->company_id}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> 
+				   <!--<a href="/superadmin/removeclients/{{$client->company_id}}"><i title="delete" class="fa fa-trash-o" aria-hidden="true"></i></a>--></td>
 				   
 				</tr>
 				@endforeach

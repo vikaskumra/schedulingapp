@@ -16,7 +16,7 @@
            
               <div class="box-body">
 			     <div class="form-group">
-                  <label for="company" class="col-sm-2 control-label">Company</label>
+                  <label for="company" class="col-sm-2 control-label">Company:</label>
                   <div class="col-sm-10">
 				  <select class="form-control">
 				    @foreach($company as $userCompany)
@@ -26,7 +26,7 @@
 				  </div>
                 </div>
 				<div class="form-group">
-                  <label for="user_roles" class="col-sm-2 control-label">User role</label>
+                  <label for="user_roles" class="col-sm-2 control-label">User role:</label>
                   <div class="col-sm-10">
 				  <select multiple name="user_roles[]" id="user_roles" class="form-control">
 				    @foreach($roles as $role)

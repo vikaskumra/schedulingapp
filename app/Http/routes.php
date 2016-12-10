@@ -74,8 +74,21 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	
 	Route::get('user/setupteammember', ['uses'=>'UserController@showTeammember'])->name('setupteammember');
 	Route::match(['get','post'],'user/addteammember', ['uses'=>'UserController@addTeammember'])
-	->name('addteammember');  
-
+	->name('addteammember');    
+	
+	Route::get('user/setupjobs', ['uses'=>'JobsController@displayJobs'])->name('setupjobs');
+    Route::match(['get','post'],'user/addjobs', ['uses'=>'JobsController@addJob'])
+	->name('addjob');  
+	
+	Route::get('user/managecustomers', ['uses'=>'CustomerController@showCustomers'])->name('managecustomers');
+	Route::match(['get','post'],'user/addcustomer', ['uses'=>'CustomerController@addCustomer'])
+	->name('addCustomer');  
+	Route::get('user/managecontacts/{id}', ['uses'=>'CustomerController@manageContacts'])->name('managecontacts');
+	Route::match(['get','post'],'user/addcontacts/{id}', ['uses'=>'CustomerController@addContacts'])->name('addcontact');  
+	Route::match(['get','post'],'user/editcontact/{id}', ['uses'=>'CustomerController@editContact'])->name('editcustomercontact');  
+	Route::match(['get','post'],'user/editcontacts/{id}', ['uses'=>'CustomerController@editCustomer'])->name('editcontact');  
+	Route::get('user/customersContact',['uses'=>'CustomerController@viewContacts'])->name('viewcontacts');
+	
 	
 
 
@@ -97,11 +110,7 @@ Route::get('/common/rightsidebar',function(){
 }); 
 Route::get('/users/testmail', 'UserController@testing');
 
-Route::get('/common/footer',function(){
-	
-	return view('common/footer');
-
-});
+Route::get('/common/footer','UserController@commonFooter');
 
 
 
@@ -135,6 +144,7 @@ Route::get('/user/security/token/{token}', ['uses'=>'UserController@teammemberSi
 Route::post('/user/security/token/{token}', ['uses'=>'UserController@teammemberSignup']);  
 Route::match(['get', 'post'], 'user/editteammember/{id}', ['uses'=>'UserController@editTeammember'])
                                   ->name('editteammember');   
-Route::get('/user/teamlogin', 'UserController@teamLogin');								  
+Route::get('/user/teamlogin', 'UserController@teamLogin');	 
+Route::get('/user/task_roles/{id}', 'UserController@getUserByRolesid');							  
 
 

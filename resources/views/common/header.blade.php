@@ -27,9 +27,43 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->  
+  <script type="text/javascript">
+     function checkClass(){
+     var page = document.getElementById('pageId');  
+	 var item = document.getElementById('setupteammember');   
+	 var item1 = document.getElementById('setuproles');
+	 var item2 = document.getElementById('setuptasks');
+	 var item3 = document.getElementById('userdashboard');
+        	 
+	 if(item.id == page.className)
+	 {
+  
+		 $('#setupteammember').next().addClass('arrow-up');
+	 }  
+	 
+	 if(item1.id == page.className)
+	 {
+ 
+         $('#setuproles').next().addClass('arrow-up');		 
+	 }
+	 if(item2.id == page.className)
+	 {
+  
+         $('#setuptasks').next().addClass('arrow-up');		 
+	 }
+	 if(item3.id == page.className)
+	 {  
+         $('#userdashboard').next().addClass('arrow-up');		 
+	 }
+	  
+	 } 
+	 
+	 
+	 
+  </script>
   
 </head>
-<body class="hold-transition {{Request::route()->getName()}}-page skin-blue sidebar-mini">  
-<!--<div class="{{Request::route()->getName()}}" id="pageId">{{Request::route()->getName()}}</div>-->
+<body onload="checkClass()" class="hold-transition {{Request::route()->getName()}}-page skin-blue sidebar-mini">  
+<div style="display:none;" class="{{Request::route()->getName()}}" id="pageId">{{Request::route()->getName()}}</div>
 <div class="wrapper">
 

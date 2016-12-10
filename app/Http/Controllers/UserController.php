@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\CompanyTypes;
 use App\Company;
-use App\Roles;   
+use App\Roles;
+use App\Jobs;   
 use Mail;  
 use DB;
 
@@ -119,7 +120,7 @@ class UserController extends Controller
 		}
 
 
-		function signup()
+		public function signup()
 		{
 			if(!empty(Input::get('email')))
 			{
@@ -133,7 +134,7 @@ class UserController extends Controller
 						//return redirect()->back()->withErrors($validation)->withInput();
 							return redirect()->route('usersignup')->withErrors($validation)->withInput();
 
-						
+						 
 						$company_type = CompanyTypes::all();
 						return view('users.signup')->with(['company_type'=>$company_type]);
 				}	   
@@ -158,13 +159,20 @@ class UserController extends Controller
 					$user->email =          Input::get('email');
 					$user->password = Hash::make(Input::get('password'));
 					$user->save();  
+                    $trade_id = Input::get('trade');
+                    $trade_data = array();					
+					foreach($trade_id as $tradeId){
+						$trade_data[] = ['trade_id'=>$tradeId, 'company_id'=>$company->id];                  
+					}
+                    DB::table('company_trades')->insert($trade_data);			
 					return redirect()->route('login');  
 				}
 					
 			}	
 			else{
+					$trades = DB::table('trades')->get();
 					$company_type = CompanyTypes::all();
-					return view('users.signup')->with(['company_type'=>$company_type]);
+					return view('users.signup')->with(['company_type'=>$company_type, 'trades'=>$trades]);
 			}
 			
 		}   
@@ -359,7 +367,31 @@ class UserController extends Controller
 		 
 		 public function teamLogin(){
 			 return view('users.teammemberlogin');
-		 }
+		 }  
+		 
+		 
+		 
+		 
+		 
+		 public function getUserByRolesid($id){
+			 $roles_user = DB::table('user_roles')->where('user_roles.company_id', '=', Auth::user()->company_id)
+			             ->where('role_id', '=', $id)
+			          
+			          ->join('users', 'user_roles.user_id', '=', 'users.id')->get();  
+                        	
+                 return  json_encode($roles_user);						 
+
+		 }  
+
+
+         public function commonFooter(){
+			 $tasktypes = DB::table('tasktypes')->where('company_id', '=', Auth::user()->company_id)->get();
+			 $roles = DB::table('roles')->where('company_id', '=', Auth::user()->company_id)->get(); 
+			 return view('common/footer')->with(['tasktypes'=>$tasktypes, 'roles'=>$roles]);
+		 }  
+
+
+         	 
 		
 		
 		
