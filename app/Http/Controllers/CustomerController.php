@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests; 
 use App\Customers;
-use App\User; 
+use App\User;   
+use App\CustomerSiteLocations;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use DB; 
-use Hash;
+use Hash;  
+use Mail;
 
 class CustomerController extends Controller
 {
@@ -134,7 +136,22 @@ class CustomerController extends Controller
 				  ];                       	
 						DB::table('user_roles')->insert($contact_user_roles); 
 						
-				  }  
+				  }   
+
+                
+				$data = [
+				      'auth_first'=>Auth::user()->first_name,
+					  'auth_last'=>Auth::user()->last_name,
+					  'email'=>$contact->email,
+				      'password'=>Input::get('password'),
+					  'contact_first'=>$contact->first_name,
+					  'contact_last'=>$contact->last_name
+					];
+				Mail::send('/users/contactmail', $data, function ($message) use($data)
+				{
+					$message->to($data['email'])->subject('SchedulingApp!');
+					
+				});				  
 				  
 				                      			 
 				  
@@ -195,6 +212,53 @@ class CustomerController extends Controller
 				  else{
    			        return view('users.contact')->with(['roles'=>$roles, 'contact'=>$contact, 'contacts'=>$contacts]);  
 				  }
+			   
+		   }  
+		   
+		   public function viewCustomerDevelopment(){
+			   return view('users.customerdevelopments');
+		   }  
+		   
+		   public function viewCustomerSiteLocation(){
+			   $locations = DB::table('customer_site_locations')
+                             ->join('customers', 'customer_site_locations.customer_id', '=', 'customers.id')
+							 ->join('users', 'customer_site_locations.project_manager', '=', 'users.id')
+							 ->where('customers.created_by', '=', Auth::user()->id)
+							 ->where('customers.company_id', '=', Auth::user()->company_id)
+							 ->select('customers.first_name as customer_first','customers.last_name as customer_last',
+							          'customers.company_name', 'customer_site_locations.location_id',
+									  'customer_site_locations.location_title','customer_site_locations.street_address',
+									  'users.first_name as user_first', 'users.last_name as user_last')
+							 ->get();
+                var_dump(json_encode($locations));  
+               				
+			   
+			   return view('users.customersitelocations')->with(['locations'=>$locations]);
+		   }  
+		   
+		   public function addCustomerSiteLocation(){
+			   if(!empty(Input::get('location_title'))){
+				   $site_location = new CustomerSiteLocations;
+				   $site_location->location_title = Input::get('location_title');
+				   $site_location->street_address = Input::get('street_address');
+				   $site_location->project_manager = Input::get('project_manager'); 
+                   $site_location->customer_id = Input::get('customer');				   
+				   $site_location->save();  
+				   return redirect()->route('viewcustomersitelocations');
+			   }
+			   else{
+			   $customers = DB::table('customers')
+			                ->where('created_by','=', Auth::user()->id)
+							->where('company_id', '=', Auth::user()->company_id)
+							->get();
+			   
+			   return view('users.customersitelocation')->with(['customers'=>$customers]); 
+			   }
+		   } 
+		   
+		   public function viewCustomercontact($id){
+			   $contacts = DB::table('users')->where('customer_contactId', '=', $id)->get();
+               return json_encode($contacts);			   
 			   
 		   }
 		 

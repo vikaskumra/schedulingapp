@@ -15,15 +15,16 @@
 			{!! Form::open(['class'=>'form-horizontal']) !!}  
 			<fieldset>
              <legend>Company Info:</legend>
-             <input type="hidden" value="{{$company->id}}" name="id">
+             <input type="hidden" value="{{$owners->id}}" name="id">
               <div class="box-body">
                 <div class="form-group">
                   <label for="companyName" class="col-sm-2 control-label">Company Name:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$company->company_name}}" required class="form-control" name="company_name" id="companyName" placeholder="Company Name">
+                    <input type="text" value="{{$owners->company_name}}" required class="form-control" name="company_name" id="companyName" placeholder="Company Name">
                   </div>
                 </div>                  
+				
 				<div class="form-group">
 				  <label for="companyType" class="col-sm-2 control-label">Trades</label>
                   <div class="col-sm-10">
@@ -44,35 +45,35 @@
                   <label for="address" class="col-sm-2 control-label">Address:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$company->address}}" required class="form-control" name="address" id="address" placeholder="Address">
+                    <input type="text" value="{{$owners->address}}" required class="form-control" name="address" id="address" placeholder="Address">
                   </div>
                 </div>
 				<div class="form-group">
                   <label for="city" class="col-sm-2 control-label">City:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$company->city}}" required class="form-control" name="city" id="city" placeholder="City">
+                    <input type="text" value="{{$owners->city}}" required class="form-control" name="city" id="city" placeholder="City">
                   </div>
                 </div>
 				<div class="form-group">
                   <label for="state" class="col-sm-2 control-label">State:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$company->state}}" required class="form-control" name="state" id="state" placeholder="State">
+                    <input type="text" value="{{$owners->state}}" required class="form-control" name="state" id="state" placeholder="State">
                   </div>
                 </div>
 				<div class="form-group">
                   <label for="country" class="col-sm-2 control-label">Country:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$company->country}}" required class="form-control" name="country" id="country" placeholder="Country">
+                    <input type="text" value="{{$owners->country}}" required class="form-control" name="country" id="country" placeholder="Country">
                   </div>
                 </div>
 				<div class="form-group">
                   <label for="phone" class="col-sm-2 control-label">Phone:</label>
 
                   <div class="col-sm-10">
-                    <input type="tel" value="{{$company->phone}}" required class="form-control" name="phone" id="phone" placeholder="Phone">
+                    <input type="tel" value="{{$owners->phone}}" required class="form-control" name="phone" id="phone" placeholder="Phone">
                   </div>
                 </div>  
 				</fieldset>  
@@ -80,7 +81,7 @@
 				  <legend>User Info</legend> 
 				  
 				 
-				@if(($company->id) == 0)
+				@if(($owners->id) == 0)
 					<div class="form-group">
                   <label for="firstName" class="col-sm-2 control-label">First Name:</label>
 
@@ -105,35 +106,35 @@
                 </div>
 				@else
 				
-				@foreach($company->users as $user)
+				
 				<div class="form-group">
                   <label for="firstName" class="col-sm-2 control-label">First Name:</label>
 
                   <div class="col-sm-10">
 				      
-                    <input type="text" value="{{$user->first_name}}" required class="form-control" name="first_name" id="firstName" placeholder="First Name">
+                    <input type="text" value="{{$owners->first_name}}" required class="form-control" name="first_name" id="firstName" placeholder="First Name">
                   </div>
                 </div>
 				<div class="form-group">
                   <label for="lastName" class="col-sm-2 control-label">Last Name:</label>
 
                   <div class="col-sm-10">
-                    <input type="text" value="{{$user->last_name}}" required class="form-control" name="last_name" id="lastName" placeholder="Last Name">
+                    <input type="text" value="{{$owners->last_name}}" required class="form-control" name="last_name" id="lastName" placeholder="Last Name">
                   </div>
                 </div>  
 				<div class="form-group">
                   <label for="email" class="col-sm-2 control-label">Email:</label>
 
                   <div class="col-sm-10">
-                    <input type="email" value="{{$user->email}}" required class="form-control" name="email" id="email" placeholder="Email">
+                    <input type="email" value="{{$owners->email}}" required class="form-control" name="email" id="email" placeholder="Email">
                   </div>
                 </div>  
-				@endforeach  
+				
 				@endif
 				
 				
 				
-				@if($company->id == 0)
+				@if($owners->id == 0)
 					      
 						  <div class="form-group">
                   <label for="password" class="col-sm-2 control-label">Password:</label>

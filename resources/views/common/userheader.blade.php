@@ -304,9 +304,13 @@
 			   
 
 				  <li><a href="{{URL::route('setupteammember')}}"><i class="fa fa-circle-o"></i> Set up Team</a></li> 
-				   <li><a href="{{URL::route('setupjobs')}}"><i class="fa fa-circle-o"></i> Set up Jobs</a></li>
+				   <li><a href="{{URL::route('setupjobs')}}"><i class="fa fa-circle-o"></i> Set up Job Template</a></li>
 				   <li><a href="{{URL::route('managecustomers')}}"><i class="fa fa-circle-o"></i> Manage Customers</a></li>
 				   <li><a href="{{URL::route('viewcontacts')}}"><i class="fa fa-circle-o"></i> All Contacts</a></li>
+                   <li><a href="{{URL::route('viewtaskstates')}}"><i class="fa fa-circle-o"></i> Task States</a></li>				  
+                   <li><a href="{{URL::route('viewcustomerdevelopments')}}"><i class="fa fa-circle-o"></i> Customer Development</a></li>
+                   <li><a href="{{URL::route('viewcustomersitelocations')}}"><i class="fa fa-circle-o"></i> Customer Site Locations</a></li>				   
+				   
 
 				  
 

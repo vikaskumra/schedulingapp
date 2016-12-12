@@ -99,10 +99,13 @@ class SuperAdminController extends Controller
 	   }  
 	   
 	   public function manageClients(){ 
-            $company = new Company;
+            $company = new Company;  
+			$owners = new Company; 
+            $company_trades = [];			
+			
              $company->id = '';				 
 	       $trades=Trades::all();  		   
-				return view('/superadmin/manageclients')->with(['trades'=>$trades, 'company'=>$company]);  
+				return view('/superadmin/manageclients')->with(['trades'=>$trades, 'company'=>$company, 'owners'=>$owners, 'company_trades'=>$company_trades]);  
 		   
 	   }  
 	   
@@ -111,21 +114,31 @@ class SuperAdminController extends Controller
 			   
 			 if(!empty($id)){
                    		 
-				   $company = Company::findOrFail($id);
+				   $company = new Company;  
+				   $owner  = $company->getClients($id); 
+                   $comp = Company::findOrFail($id); 
+                   				   	 
+                   foreach($owner as $owners){
+					   
+				   }  
+				   $company_id = ['company_id'=>13];
+            	   $user = User::where('user_type', '=', $owners->user_type)
+				           ->where('company_id', '=', $owners->company_id)->firstOrFail(); 
+											
 				   $companytypes=CompanyTypes::all();  
 				   if(!empty(Input::get('id'))){  
 				   //echo ($company->id); 
 				   
 				   
-				  $company->company_name = Input::get('company_name'); 
-                  $company->company_type = Input::get('company_type');
-                  $company->address =      Input::get('address');
-                  $company->city =         Input::get('city');
-                  $company->state =        Input::get('state');
-                  $company->country =      Input::get('country');
-                  $company->phone = 	   Input::get('phone');	 
-                  foreach($company->users as $user)
-				   {
+				  $comp->company_name = Input::get('company_name');   
+				   
+                  $comp->company_type = Input::get('company_type');
+                  $comp->address =      Input::get('address');
+                  $comp->city =         Input::get('city');
+                  $comp->state =        Input::get('state');
+                  $comp->country =      Input::get('country');
+                  $comp->phone = 	   Input::get('phone');	 
+          
 				  $user->first_name =   Input::get('first_name');  
                   $user->last_name =    Input::get('last_name');
                   $user->email =        Input::get('email');  
@@ -133,12 +146,13 @@ class SuperAdminController extends Controller
 					  $user->password =     Hash::make(Input::get('password'));
 				  }
                   
+				 
 				  $user->save();
-				   }  
+			//	   }  
                    $trade_id = Input::get('company_trade');  
                    DB::table('company_trades')->where('company_id', '=', $id)->delete();				   
                    
-				  $company->save(); 
+				  $comp->save(); 
                       $trade_data = [];				  
 				     foreach($trade_id as $trade){
 						 $trade_data[] = ['trade_id'=>$trade, 'company_id'=>$id];
@@ -150,22 +164,30 @@ class SuperAdminController extends Controller
                                 
 				  }  
 
-                       else{
+                       else{  
+						  foreach($owner as $owners)
+						  {
+							  
+						  }  
+					
 						   $trades=Trades::all();	
 						   $companytrades= DB::table('company_trades')->where('company_id', '=' ,$id)->get();
+						   
 						   $company_trades=array();
 						   foreach($companytrades as $key=>$value)
 						   {
 							   $company_trades[]=$value->trade_id;
 						   }	
 						return view('/superadmin/manageclients')
-				           ->with(['companytypes'=>$companytypes, 'company'=>$company, 'trades'=>$trades, 'company_trades'=>$company_trades]);
+				           ->with(['companytypes'=>$companytypes, 'owners'=>$owners,  'trades'=>$trades, 'company_trades'=>$company_trades]);
 					   }				   
 		
 				   
 			 }
 			 else
-			 {
+			 {  
+		 
+		         $owners = new Company;
    
 				$rules = ['password'=>'required|same:confpass'];
 				$validation = Validator::make(Input::all(), $rules);

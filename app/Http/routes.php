@@ -87,7 +87,16 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	Route::match(['get','post'],'user/addcontacts/{id}', ['uses'=>'CustomerController@addContacts'])->name('addcontact');  
 	Route::match(['get','post'],'user/editcontact/{id}', ['uses'=>'CustomerController@editContact'])->name('editcustomercontact');  
 	Route::match(['get','post'],'user/editcontacts/{id}', ['uses'=>'CustomerController@editCustomer'])->name('editcontact');  
-	Route::get('user/customersContact',['uses'=>'CustomerController@viewContacts'])->name('viewcontacts');
+	Route::get('user/customersContact',['uses'=>'CustomerController@viewContacts'])->name('viewcontacts'); 
+	Route::get('user/taskstates', ['uses'=>'TasksController@viewTaskStates'])->name('viewtaskstates');
+	Route::match(['get', 'post'], 'user/addtaskstate', ['uses'=>'TasksController@addTaskState'])->name('addtaskstate');
+	Route::match(['get', 'post'], 'user/edittaskstate/{id}', ['uses'=>'TasksController@editTaskState'])->name('edittaskstate');  
+	Route::get('user/customerdevelopments', ['uses'=>'CustomerController@viewCustomerDevelopment'])->name('viewcustomerdevelopments'); 
+	Route::get('user/customersitelocations', ['uses'=>'CustomerController@viewCustomerSiteLocation'])->name('viewcustomersitelocations');
+	Route::match(['get', 'post'], 'user/addcustomersitelocation', ['uses'=>'CustomerController@addCustomerSiteLocation'])->name('addcustomersitelocation');
+	Route::match(['get', 'post'], 'user/viewcustomercontacts/{id}', ['uses'=>'CustomerController@viewCustomercontact'])->name('customerContacts');
+    	
+	
 	
 	
 
@@ -145,6 +154,7 @@ Route::post('/user/security/token/{token}', ['uses'=>'UserController@teammemberS
 Route::match(['get', 'post'], 'user/editteammember/{id}', ['uses'=>'UserController@editTeammember'])
                                   ->name('editteammember');   
 Route::get('/user/teamlogin', 'UserController@teamLogin');	 
-Route::get('/user/task_roles/{id}', 'UserController@getUserByRolesid');							  
+Route::get('/user/task_roles/{id}', 'UserController@getUserByRolesid');	  
+Route::get('/contactmail', 'UserController@sendLoginToContacts');						  
 
 

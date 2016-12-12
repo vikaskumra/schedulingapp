@@ -388,7 +388,12 @@ class UserController extends Controller
 			 $tasktypes = DB::table('tasktypes')->where('company_id', '=', Auth::user()->company_id)->get();
 			 $roles = DB::table('roles')->where('company_id', '=', Auth::user()->company_id)->get(); 
 			 return view('common/footer')->with(['tasktypes'=>$tasktypes, 'roles'=>$roles]);
-		 }  
+		 }   
+
+
+         public function sendLoginToContacts(){
+			 return view('users.contactmail');
+		 }		 
 
 
          	 

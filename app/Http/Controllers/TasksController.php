@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use App\Tasks; 
 use App\TaskTypes; 
+use App\Task_States;
 
 class TasksController extends Controller
 {
@@ -83,7 +84,44 @@ class TasksController extends Controller
                $taskObj->save();    
          }
          
-    }
+    }  
+	
+	
+	
+	public function viewTaskStates(){  
+	    $task_states = DB::table('task_states')->get();
+		return view('users.task_states')->with(['task_states'=>$task_states]);
+	}
+	
+	public function addTaskState(){
+		if(!empty(Input::get('phase_title'))){
+			$task_state = new Task_States;
+			$task_state->task_state_name = Input::get('phase_title');
+			$task_state->task_state_color = Input::get('phase_color');
+			$task_state->task_state_note = Input::get('phase_note');
+			$task_state->save();  
+			return redirect()->route('viewtaskstates');
+		}
+		else{
+			return view('users.task_state');
+		}
+		
+	}  
+	
+	public function editTaskState($id){
+		$state = Task_States::findOrFail($id);
+		if(!empty(Input::get('phase_title'))){
+			$state->task_state_name = Input::get('phase_title');
+			$state->task_state_color = Input::get('phase_color');
+			$state->task_state_note = Input::get('phase_note');
+			$state->save();   
+            return redirect()->route('viewtaskstates');			
+		}  
+		
+		else{  		    
+			return view('users.task_state')->with(['state'=>$state]);
+		}
+	}
 
 
        

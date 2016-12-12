@@ -14,8 +14,10 @@ use DB;
 
 class JobsController extends Controller
 {
-    public function displayJobs(){
-			 return view('users.jobs');
+    public function displayJobs(){  
+	
+	         $jobs = Jobs::all();
+			 return view('users.jobs')->with(['jobs'=>$jobs]);
 		 }  
 		 
 		 public function addJob(){  
