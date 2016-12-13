@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests; 
 use App\Customers;
 use App\User;   
-use App\CustomerSiteLocations;
+use App\CustomerSiteLocations;  
+use App\CustomerDevelopments;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use DB; 
@@ -215,8 +216,11 @@ class CustomerController extends Controller
 			   
 		   }  
 		   
-		   public function viewCustomerDevelopment(){
-			   return view('users.customerdevelopments');
+		   public function viewCustomerDevelopment(){  
+		       $developments = new CustomerDevelopments;  
+			   $dev =  $developments->getDevelopmentByCustomer();  
+			
+			   return view('users.customerdevelopments')->with(['dev'=>$dev]);
 		   }  
 		   
 		   public function viewCustomerSiteLocation(){
@@ -229,10 +233,7 @@ class CustomerController extends Controller
 							          'customers.company_name', 'customer_site_locations.location_id',
 									  'customer_site_locations.location_title','customer_site_locations.street_address',
 									  'users.first_name as user_first', 'users.last_name as user_last')
-							 ->get();
-                var_dump(json_encode($locations));  
-               				
-			   
+							 ->get();                              							   
 			   return view('users.customersitelocations')->with(['locations'=>$locations]);
 		   }  
 		   
@@ -252,7 +253,8 @@ class CustomerController extends Controller
 							->where('company_id', '=', Auth::user()->company_id)
 							->get();
 			   
-			   return view('users.customersitelocation')->with(['customers'=>$customers]); 
+			   $customer_location = new CustomerSiteLocations;
+			   return view('users.customersitelocation')->with(['customers'=>$customers, 'customer_location'=>$customer_location]); 
 			   }
 		   } 
 		   
@@ -260,6 +262,101 @@ class CustomerController extends Controller
 			   $contacts = DB::table('users')->where('customer_contactId', '=', $id)->get();
                return json_encode($contacts);			   
 			   
+		   }  
+		   
+		   public function editCustomerSiteLocation($id){
+			   if(!empty(Input::get('location_title'))){
+				      $updateLocation = CustomerSiteLocations::findOrFail($id);  
+			          $updateLocation->location_title = Input::get('location_title');
+			          $updateLocation->street_address =  Input::get('street_address');
+                      $updateLocation->project_manager =  Input::get('project_manager');					  
+					  $updateLocation->save();   
+					  return redirect()->route('viewcustomersitelocations');
+					  
+			   }  
+			   
+			   else{
+			   $locations  = new CustomerSiteLocations;  
+			   $location = $locations->getLocationByCustomer($id);  
+			   var_dump(json_encode($location)); 
+			   foreach($location as $customer_location){
+				  $contacts = DB::table('users')
+				              ->where('customer_contactId', '=', $customer_location->customer_id)
+							  ->where('company_id', '=', $customer_location->company_id)
+							  ->get();
+			   }  	    
+			   $customers = DB::table('customers')
+			                ->where('created_by','=', Auth::user()->id)
+							->where('company_id', '=', Auth::user()->company_id)
+							->get();
+			   return view('users.customersitelocation')->with(['customer_location'=>$customer_location, 'customers'=>$customers, 'contacts'=>$contacts]);  
+			   }
+		   }   
+		   
+		   public function addCustomerDevelopment(){  
+		   
+		        if(!empty(Input::get('development_name'))){
+					  $development = new CustomerDevelopments;  
+                      $development->development_name = Input::get('development_name');					  
+					  $development->development_address = Input::get('development_address'); 					  
+					  $development->project_manager = 	Input::get('project_manager');				  
+					  $development->customer_id =  Input::get('customer');
+                      $development->location_id =  Input::get('location');	  
+                      $development->save();  
+                      return redirect()->route('viewcustomerdevelopments');					  
+				}  
+				
+				else{
+					  $customer_location = new CustomerSiteLocations;
+				$locations = $customer_location->getLocations();  
+                $customers = new Customers;  
+                $customer = $customers->getCustomers();				
+				return view('users.customerdevelopment')->with(['locations'=>$locations, 'customer'=>$customer]);
+				}
+				
+		   }    
+		   
+		   
+		   public function editCustomerDevelopment($id){
+			   //echo $id; 
+               $customers = new Customers;  
+                $customer = $customers->getCustomers();	  
+                 $developments = new CustomerDevelopments;  
+                 $development =$developments->getDevelopmentById($id);  
+                 //dd($development);  
+				 
+				 foreach($development['development'] as $dev){
+					 
+					  
+				  }  
+                 foreach($development['locations'] as $locations){
+					 
+					  
+				  }				  
+				  
+			   return view('users.customerdevelopment')->with(['customer'=>$customer, 'dev'=>$dev, 'locations'=>$development['locations'] ]);
+		   }
+		   
+		   
+		   public function getCustomerDevelopmentLocation($id){
+			   $locations = new CustomerSiteLocations;  
+			   $location = $locations->getLocationByCustomer($id);   
+			   
+			   return json_encode($location);
+		   }  
+		   
+		   
+		   public function getCustomerLocation($id){
+			   $locations = new CustomerSiteLocations;  
+			   $location = $locations->getLocation($id);  
+			   
+			   return $location;
+			   
+		   }  
+		   
+		   public function getLocationId($id){
+			   $location = DB::table('customer_site_locations')->where('location_id', '=', $id)->get();
+			   return json_encode($location);
 		   }
 		 
 }

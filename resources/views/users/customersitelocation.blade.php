@@ -19,23 +19,24 @@
                 <div class="form-group">
                   <label for="customer" class="col-sm-2 control-label">Select Customer:</label>
                   <div class="col-sm-10">
-                    <select onchange="loadContacts(this)"  value="" class="form-control" name="customer" id="customer">
+                    <select <?php if(!empty($customer_location->customer_id)){echo 'disabled ';} ?>onchange="loadContacts(this)"  value="" class="form-control" name="customer" id="customer">
+					  <option>Select Customer</option>
 					  @foreach($customers as $customer)
-					  <option value="{{$customer->id}}">{{$customer->first_name}} {{$customer->last_name}}</option>
+					  <option <?php if($customer->id == $customer_location->customer_id){ echo 'selected';} ?> value="{{$customer->id}}">{{$customer->first_name}} {{$customer->last_name}}</option>
 					  @endforeach
-					</select>
+					</select>  			
                   </div>
                 </div>  
 				<div class="form-group">
                   <label for="location_title" class="col-sm-2 control-label">Location Title:</label>
                   <div class="col-sm-10">
-                    <input type="text" value="" class="form-control" name="location_title" id="location_title" placeholder="Location Title" />
+                    <input type="text" value="{{$customer_location->location_title}}" class="form-control" name="location_title" id="location_title" placeholder="Location Title" />
                   </div>
                 </div>
 				<div class="form-group">
                   <label for="address" class="col-sm-2 control-label">Street Address:</label>
                   <div class="col-sm-10">
-                    <input type="text" value="" required class="form-control" name="street_address" id="street_address" placeholder="Street Address" />
+                    <input type="text" value="{{$customer_location->street_address}}" required class="form-control" name="street_address" id="street_address" placeholder="Street Address" />
                   </div>
                 </div> 
 				<div class="form-group">
@@ -43,8 +44,14 @@
                   <div class="col-sm-10">
                     <select  value="" class="form-control" name="project_manager" id="project_manager">
 					  
-					  <option value="">Select Contacts</option>
-					  
+					  <option value="">Select Contacts</option> 
+					  @if(!empty($customer_location->project_manager))
+					  @foreach($contacts as $contact)
+				     <option <?php if($contact->id == $customer_location->project_manager){echo 'selected';}?> value="{{$contact->id}}">
+					   {{$contact->first_name}} {{$contact->last_name}} 
+					</option>
+					@endforeach 
+					  @endif
 					</select>
                   </div>
                 </div>  

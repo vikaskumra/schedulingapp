@@ -92,9 +92,17 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	Route::match(['get', 'post'], 'user/addtaskstate', ['uses'=>'TasksController@addTaskState'])->name('addtaskstate');
 	Route::match(['get', 'post'], 'user/edittaskstate/{id}', ['uses'=>'TasksController@editTaskState'])->name('edittaskstate');  
 	Route::get('user/customerdevelopments', ['uses'=>'CustomerController@viewCustomerDevelopment'])->name('viewcustomerdevelopments'); 
+	Route::match(['get', 'post'],'user/addcustomerdevelopment', ['uses'=>'CustomerController@addCustomerDevelopment'])->name('addcustomerdevelopment'); 
+	Route::match(['get', 'post'],'user/editcustomerdevelopment/{id}', ['uses'=>'CustomerController@editCustomerDevelopment'])->name('editcustomerdevelopment'); 
+	Route::get('user/getcustomerdevelopmentlocation/{id}', ['uses'=>'CustomerController@getCustomerDevelopmentLocation'])->name('getcustomerdevelopmentlocation');  
+	Route::get('user/getcustomerlocation/{id}', ['uses'=>'CustomerController@getCustomerLocation'])->name('getcustomerlocation');
+	Route::get('user/getlocationid/{id}', ['uses'=>'CustomerController@getLocationId'])->name('getlocationid');
+	
+	
 	Route::get('user/customersitelocations', ['uses'=>'CustomerController@viewCustomerSiteLocation'])->name('viewcustomersitelocations');
 	Route::match(['get', 'post'], 'user/addcustomersitelocation', ['uses'=>'CustomerController@addCustomerSiteLocation'])->name('addcustomersitelocation');
 	Route::match(['get', 'post'], 'user/viewcustomercontacts/{id}', ['uses'=>'CustomerController@viewCustomercontact'])->name('customerContacts');
+	Route::match(['get', 'post'], 'user/editcustomersitelocation/{id}', ['uses'=>'CustomerController@editCustomerSiteLocation'])->name('editcustomersitelocation');
     	
 	
 	

@@ -52,7 +52,7 @@
 			      @endif
 				  </td>
 				  <td>{{$location->user_first}} {{$location->user_last}}</td>
-                  <td><a href="{{$location->location_id}}"><i title="edit person" class="fa fa-pencil" aria-hidden="true"></i></a> 
+                  <td><a href="{{URL::route('editcustomersitelocation', $location->location_id)}}"><i title="edit person" class="fa fa-pencil" aria-hidden="true"></i></a> 
                  <!-- | <a href="#"><i title="delete person" class="fa fa-trash-o" aria-hidden="true"></i></a>-->
                   </td>
                 </tr>

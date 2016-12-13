@@ -30,11 +30,12 @@
 			  <table id="dataTable" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="dataTable_info">
                 <thead>
                 <tr role="row">
+				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Company Name: activate to sort column ascending" aria-sort="descending">Company Name</th>
 				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="First Name: activate to sort column ascending" aria-sort="descending">First Name</th>
 				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Last Name: activate to sort column ascending">Last Name</th> 
-				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" aria-sort="descending">Email</th>
+				
 				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Active: activate to sort column ascending">Manage Contacts</th>
-				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending">Phone</th>
+				
 				<th class="nosort" tabindex="0"  rowspan="1" colspan="1"  >Action</th>
 				
 				</tr>
@@ -43,11 +44,12 @@
          
 			   @foreach($customers as $customer)
                 <tr role="row" class="odd">
-                  <td class="sorting_1">{{$customer->first_name}}</td>
+                  <td class="sorting_1">{{$customer->company_name}}</td>
+				  <td class="sorting_1">{{$customer->first_name}}</td>
                   <td>{{$customer->last_name}}</td>
-				  <td>{{$customer->email}}</td>
+
 				  <td style="text-align:center"><a href="{{URL::route('managecontacts', $customer->id)}}" class = "btn btn-primary">Contacts</a></td>
-				  <td>{{$customer->phone}}</td>
+				  
                   <td><a href="{{URL::route('editcontact', $customer->id)}}"><i title="edit person" class="fa fa-pencil" aria-hidden="true"></i></a> 
                  <!-- | <a href="#"><i title="delete person" class="fa fa-trash-o" aria-hidden="true"></i></a>-->
                   </td>
