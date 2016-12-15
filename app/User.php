@@ -29,5 +29,13 @@ class User extends Authenticatable
 	
 	public function companies(){
 		 return $this->belongsTo('App\Company');
+	}  
+	
+	public function sendMail($to,$message, $subject){
+		$headers = 'From:info@w3sols.com' . "\r\n" .
+                     'Content-type:text/html'. "\r\n".
+                     'X-Mailer: PHP/' . phpversion();   
+        					 
+		mail($to,$subject,$message, $headers);
 	}
 }

@@ -35,9 +35,8 @@
 
 <p>To access your account, you will need your login details.</p>
 
-<p>Username:<b>{{$email}}</b></p>
+<p>Username:<b>{{$email}}</b></p> 
 <p>Password:<b>{{$password}}</b></p>
-
 <p><a href="http://scheduling.w3sols.com/users/login" target="_blank">Click here to login.</a></p>
 
 <p>We hope Schedulingapp works well for you. If you have any questions once you are underway, please let us know.</p>

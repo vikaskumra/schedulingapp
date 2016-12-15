@@ -152,7 +152,19 @@ class CustomerController extends Controller
 				{
 					$message->to($data['email'])->subject('SchedulingApp!');
 					
-				});				  
+				});	  
+
+
+                /*
+                       $data = file_get_contents('/home3/asquares/public_html/scheduling/resources/views/users/contactmail.blade.php');
+		 $search = ['{{$auth_first}}','{{$auth_last}}','{{$email}}','{{$password}}','{{$contact_first}}', '{{$contact_last}}'];
+		 $replace = [Auth::user()->first_name,Auth::user()->last_name,$contact->email,Input::get('password'),$contact->first_name,$contact->last_name ];
+		 $message = str_replace($search, $replace, $data);
+                 $to = $contact->email;  
+				 $subject = 'schedulingapp';
+                 $user_mail = new User;  
+				 $mail = $user_mail->sendMail($to, $message, $subject);
+                */				
 				  
 				                      			 
 				  
@@ -227,20 +239,24 @@ class CustomerController extends Controller
 			   $locations = DB::table('customer_site_locations')
                              ->join('customers', 'customer_site_locations.customer_id', '=', 'customers.id')
 							 ->join('users', 'customer_site_locations.project_manager', '=', 'users.id')
+							 
 							 ->where('customers.created_by', '=', Auth::user()->id)
-							 ->where('customers.company_id', '=', Auth::user()->company_id)
+							 ->where('customers.company_id', '=', Auth::user()->company_id)  
+							 ->join('customer_developments', 'customer_site_locations.subdivision', '=', 'customer_developments.development_id')
 							 ->select('customers.first_name as customer_first','customers.last_name as customer_last',
 							          'customers.company_name', 'customer_site_locations.location_id',
 									  'customer_site_locations.location_title','customer_site_locations.street_address',
-									  'users.first_name as user_first', 'users.last_name as user_last')
+									  'users.first_name as user_first', 'users.last_name as user_last', 
+									  'customer_site_locations.lot_number', 'customer_site_locations.subdivision', 'customer_developments.development_name')
 							 ->get();                              							   
 			   return view('users.customersitelocations')->with(['locations'=>$locations]);
 		   }  
 		   
 		   public function addCustomerSiteLocation(){
-			   if(!empty(Input::get('location_title'))){
+			   if(!empty(Input::get('lot_number'))){
 				   $site_location = new CustomerSiteLocations;
-				   $site_location->location_title = Input::get('location_title');
+				   $site_location->lot_number = Input::get('lot_number');
+				   $site_location->subdivision = Input::get('subdivision');
 				   $site_location->street_address = Input::get('street_address');
 				   $site_location->project_manager = Input::get('project_manager'); 
                    $site_location->customer_id = Input::get('customer');				   
@@ -253,8 +269,10 @@ class CustomerController extends Controller
 							->where('company_id', '=', Auth::user()->company_id)
 							->get();
 			   
-			   $customer_location = new CustomerSiteLocations;
-			   return view('users.customersitelocation')->with(['customers'=>$customers, 'customer_location'=>$customer_location]); 
+			   $customer_location = new CustomerSiteLocations;    
+			   $subdivisions = DB::table('customer_developments')->where('company_id', '=', Auth::user()->company_id)->get();
+			   
+			   return view('users.customersitelocation')->with(['customers'=>$customers, 'customer_location'=>$customer_location, 'subdivisions'=>$subdivisions]); 
 			   }
 		   } 
 		   
@@ -265,10 +283,11 @@ class CustomerController extends Controller
 		   }  
 		   
 		   public function editCustomerSiteLocation($id){
-			   if(!empty(Input::get('location_title'))){
+			   if(!empty(Input::get('lot_number'))){
 				      $updateLocation = CustomerSiteLocations::findOrFail($id);  
-			          $updateLocation->location_title = Input::get('location_title');
+			          $updateLocation->lot_number = Input::get('lot_number');
 			          $updateLocation->street_address =  Input::get('street_address');
+					  $updateLocation->subdivision =  Input::get('subdivision');
                       $updateLocation->project_manager =  Input::get('project_manager');					  
 					  $updateLocation->save();   
 					  return redirect()->route('viewcustomersitelocations');
@@ -278,7 +297,7 @@ class CustomerController extends Controller
 			   else{
 			   $locations  = new CustomerSiteLocations;  
 			   $location = $locations->getLocationByCustomer($id);  
-			   var_dump(json_encode($location)); 
+			
 			   foreach($location as $customer_location){
 				  $contacts = DB::table('users')
 				              ->where('customer_contactId', '=', $customer_location->customer_id)
@@ -288,8 +307,9 @@ class CustomerController extends Controller
 			   $customers = DB::table('customers')
 			                ->where('created_by','=', Auth::user()->id)
 							->where('company_id', '=', Auth::user()->company_id)
-							->get();
-			   return view('users.customersitelocation')->with(['customer_location'=>$customer_location, 'customers'=>$customers, 'contacts'=>$contacts]);  
+							->get();  
+			  $subdivisions = DB::table('customer_developments')->where('company_id', '=', Auth::user()->company_id)->get();  
+			   return view('users.customersitelocation')->with(['customer_location'=>$customer_location, 'customers'=>$customers, 'contacts'=>$contacts, 'subdivisions'=>$subdivisions]);  
 			   }
 		   }   
 		   
@@ -301,7 +321,8 @@ class CustomerController extends Controller
 					  $development->development_address = Input::get('development_address'); 					  
 					  $development->project_manager = 	Input::get('project_manager');				  
 					  $development->customer_id =  Input::get('customer');
-                      $development->location_id =  Input::get('location');	  
+                      
+                      $development->company_id = Auth::user()->company_id;					  
                       $development->save();  
                       return redirect()->route('viewcustomerdevelopments');					  
 				}  
@@ -310,17 +331,30 @@ class CustomerController extends Controller
 					  $customer_location = new CustomerSiteLocations;
 				$locations = $customer_location->getLocations();  
                 $customers = new Customers;  
-                $customer = $customers->getCustomers();				
-				return view('users.customerdevelopment')->with(['locations'=>$locations, 'customer'=>$customer]);
+                $customer = $customers->getCustomers();	  
+                $dev = new CustomerDevelopments;  
+                //$project_manager = new std [{'id':'', 'first_name':'', 'last_name':''},{'id':'', 'first_name':'', 'last_name':''},]; 
+                 				 
+                			
+				return view('users.customerdevelopment')->with(['locations'=>$locations, 'customer'=>$customer, 'dev'=>$dev]);
 				}
 				
 		   }    
 		   
 		   
 		   public function editCustomerDevelopment($id){
-			   //echo $id; 
-               $customers = new Customers;  
-                $customer = $customers->getCustomers();	  
+			     if(!empty(Input::get('development_name'))){
+					   $development = CustomerDevelopments::findOrFail($id); 
+					   $development->development_name = Input::get('development_name');
+					   $development->development_address = Input::get('development_address');
+					   $development->project_manager = Input::get('project_manager');
+					    
+					   $development->save();  
+					   return redirect()->route('viewcustomerdevelopments');
+				 }  
+				 else{
+					  $customers = new Customers;  
+                 $customer = $customers->getCustomers();	  
                  $developments = new CustomerDevelopments;  
                  $development =$developments->getDevelopmentById($id);  
                  //dd($development);  
@@ -332,9 +366,13 @@ class CustomerController extends Controller
                  foreach($development['locations'] as $locations){
 					 
 					  
-				  }				  
+				  }  
+               
+                 		   
 				  
-			   return view('users.customerdevelopment')->with(['customer'=>$customer, 'dev'=>$dev, 'locations'=>$development['locations'] ]);
+			   return view('users.customerdevelopment')->with(['customer'=>$customer, 'dev'=>$dev, 'locations'=>$development['locations'], 'project_manager'=>$development['project_managers'] ]);
+				 }
+                 
 		   }
 		   
 		   
@@ -357,6 +395,11 @@ class CustomerController extends Controller
 		   public function getLocationId($id){
 			   $location = DB::table('customer_site_locations')->where('location_id', '=', $id)->get();
 			   return json_encode($location);
+		   }  
+		   
+		   public function getProjectManagerByProject($id){
+			   $project_manager = DB::table('customer_developments')->where('development_id', '=', $id)->get();  
+			   return json_encode($project_manager);
 		   }
 		 
 }

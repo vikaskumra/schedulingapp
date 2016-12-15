@@ -28,7 +28,8 @@ class CustomerDevelopments extends Model
 						   ->get();  
              foreach($development as $dev)						   
             $locations = DB::table('customer_site_locations')->where('customer_id', '=', $dev->customer_id)->get();  
-            $data = ['development'=>$development, 'locations'=>$locations];			
+            $project_managers = DB::table('users')->where('customer_contactId', '=', $dev->customer_id)->get();
+			$data = ['development'=>$development, 'locations'=>$locations, 'project_managers'=>$project_managers];			
 			return($data);
 		}  
 		

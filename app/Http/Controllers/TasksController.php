@@ -89,7 +89,8 @@ class TasksController extends Controller
 	
 	
 	public function viewTaskStates(){  
-	    $task_states = DB::table('task_states')->get();
+	    $task_states = DB::table('task_states')->get();  
+		
 		return view('users.task_states')->with(['task_states'=>$task_states]);
 	}
 	
@@ -103,7 +104,8 @@ class TasksController extends Controller
 			return redirect()->route('viewtaskstates');
 		}
 		else{
-			return view('users.task_state');
+			$state = new Task_States;
+			return view('users.task_state')->with(['state'=>$state]);
 		}
 		
 	}  
@@ -121,6 +123,13 @@ class TasksController extends Controller
 		else{  		    
 			return view('users.task_state')->with(['state'=>$state]);
 		}
+	}  
+	
+	
+	public function getUserByTask($id){
+		$task_users = new Tasks;  
+		$user = $task_users->getUserByTaskId($id);
+		   return json_encode($user);
 	}
 
 

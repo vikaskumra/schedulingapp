@@ -8,7 +8,7 @@
 			
 			<div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Manage Customer Site Location</h3>
+              <h3 class="box-title">Manage Project</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -22,15 +22,23 @@
                     <select <?php if(!empty($customer_location->customer_id)){echo 'disabled ';} ?>onchange="loadContacts(this)"  value="" class="form-control" name="customer" id="customer">
 					  <option>Select Customer</option>
 					  @foreach($customers as $customer)
-					  <option <?php if($customer->id == $customer_location->customer_id){ echo 'selected';} ?> value="{{$customer->id}}">{{$customer->first_name}} {{$customer->last_name}}</option>
+					  <option <?php if($customer->id == $customer_location->customer_id){ echo 'selected';} ?> value="{{$customer->id}}">@if(!empty($customer->company_name)){{$customer->company_name}}@else{{$customer->first_name}} {{$customer->last_name}}@endif</option>
 					  @endforeach
 					</select>  			
                   </div>
                 </div>  
 				<div class="form-group">
-                  <label for="location_title" class="col-sm-2 control-label">Location Title:</label>
-                  <div class="col-sm-10">
-                    <input type="text" value="{{$customer_location->location_title}}" class="form-control" name="location_title" id="location_title" placeholder="Location Title" />
+                  <label for="location_title" class="col-sm-2 control-label">Lot / Subdivisions:</label>
+                  <div class="col-sm-3">
+                    <input type="text" value="{{$customer_location->lot_number}}" class="form-control" name="lot_number" id="lot_number" placeholder="Lot Number" />
+                  </div> 
+				  <div class="col-sm-7">
+                    <select onchange="loadProjectmanager(this)"  class="form-control" name="subdivision" id="subdivision" >
+					 <option>Select Subdivision</option> 
+					 @foreach($subdivisions as $subdivision)
+					 <option <?php if($subdivision->development_id == $customer_location->subdivision){echo 'selected';} ?> value="{{$subdivision->development_id}}">{{$subdivision->development_name}}</option>
+					 @endforeach
+					</select>
                   </div>
                 </div>
 				<div class="form-group">
@@ -91,16 +99,31 @@ function loadContacts(event){
 	
 	
 	$.get("/user/viewcustomercontacts/"+event.value, function(data, status){
-        console.log("Data: " + data);   
-        		var contact = JSON.parse(data);		        		
-		for(i=0; i<data.length; i++){  
+        
+        		var contact = JSON.parse(data);	 
+                $('#project_manager option').remove();				
+		for(i=0; i<contact.length; i++){  
 			var option = document.createElement( 'option' );
-			select.options[i] = null;
 			option.text = contact[i].first_name +" "+contact[i].last_name;
 				option.value = contact[i].id;
 				select.add(option);
 		}  
     });
+}  
+
+
+function loadProjectmanager(event){
+	  
+	$.get('/user/subdivisionmanager/'+event.value, function(data){
+		
+		var division = JSON.parse(data); 
+		
+		for(i=0;i<division.length;i++){  
+               var project_manager = division[i].project_manager
+            $('#project_manager option[value='+project_manager+ ']').attr('selected', 'selected');	   
+            
+		   }	
+	});
 }
 </script>
 @include('common/footer')

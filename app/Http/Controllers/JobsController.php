@@ -24,7 +24,9 @@ class JobsController extends Controller
 
              $tasktypes = DB::table('tasktypes')->where('company_id', '=', Auth::user()->company_id)->get();
 			 $roles = DB::table('roles')->where('company_id', '=', Auth::user()->company_id)->get();		 
-		     if(!empty(Input::get('task_title'))){
+		     $tasks = DB::table('tasks')->where('company_id','=', Auth::user()->company_id)->get();
+			 $phases = DB::table('task_states')->get();
+			 if(!empty(Input::get('task_title'))){
 				 
 				 $job = new Jobs; 
 				 $job->job_title = Input::get('job_title'); 
@@ -34,21 +36,21 @@ class JobsController extends Controller
 				 $job->save();
 				 
 				 $job_id = $job->id;
-                 $task_title = Input::get('task_title');
-				 $task_note = Input::get('task_notes');
-                 $task_type = Input::get('task_type');
+                 $task_id = Input::get('task_title');
+				 $job_phase = Input::get('job_phase');
+             
                  $role = Input::get('role');
                  $user = Input::get('user');  
 				 
 				 
                         //var_dump($new_job);				 
 					 $finaldata=array(); 
-                     foreach($task_title as $key=>$value){
+                     foreach($task_id as $key=>$value){
 						$finaldata[]=array(
 						'job_id' => $job_id ,
-						'task_title' => $task_title[$key],
-						'task_notes' => $task_note[$key],
-						'tasktype_id' => $task_type[$key],
+						'task_id' => $task_id[$key],
+						'job_phase_id'=>$job_phase[$key],
+						
 						'role_id' => $role[$key] ,
 						'user_id' => $user[$key] 
 						);
@@ -71,7 +73,29 @@ class JobsController extends Controller
 			 }  
 			 else{
 			 
-			 return view('users.job')->with(['tasktypes'=>$tasktypes, 'roles'=>$roles]);  
+			    return view('users.job')->with(['tasktypes'=>$tasktypes, 'roles'=>$roles, 'tasks'=>$tasks, 'phases'=>$phases]);  
 			 }
-		 } 
+		 }  
+
+          public function editJob($id){
+			  $jobs =   DB::table('jobs')
+			         ->join('job_tasks', 'jobs.id', '=', 'job_tasks.job_id')
+                     ->join('roles_tasks', 'job_tasks.task_id', '=', 'roles_tasks.task_id')
+                     ->join('user_roles', 'roles_tasks.role_id', '=', 'user_roles.role_id')  
+                     ->join('users', 'user_roles.user_id', '=', 'users.id')				 
+					 ->where('jobs.id', '=', $id) 
+					 ->select('jobs.*', 'job_tasks.job_id', 'job_tasks.task_id', 'job_tasks.job_phase_id', 
+					           'users.first_name', 'users.last_name', 'user_roles.role_id', 'user_roles.user_id')
+					  ->get();    
+					  
+					  
+                foreach($jobs as $job){
+					
+				}					  
+          
+			  $tasks = DB::table('tasks')->where('company_id','=', Auth::user()->company_id)->get();		  
+			  $phases = DB::table('task_states')->get();
+			  return view('users.job')->with(['job'=>$job, 'tasks'=>$tasks, 'phases'=>$phases, 'jobs'=>$jobs]);
+		  }
+		 
 }

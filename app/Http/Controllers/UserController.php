@@ -250,7 +250,19 @@ class UserController extends Controller
 				{
 					$message->to($data['email'])->subject('SchedulingApp!');
 					
-				});
+				});  
+				
+				
+		/*  
+        $data = file_get_contents('/home3/asquares/public_html/scheduling/resources/views/users/testmail.blade.php');
+		 $search = ['{{$auth_first}}','{{$auth_last}}','{{$first_name}}','{{$last_name}}','{{$team_token}}'];
+		 $replace = [Auth::user()->first_name,Auth::user()->last_name,$teammember->first_name,$teammember->last_name,$teammember->team_token ];
+		 $message = str_replace($search, $replace, $data);
+		 $to = $teammember->email; 
+		 $subject = 'SchedulingApp';
+		 $user_mail = new User;  
+		 $mail = $user_mail->sendMail($to, $message, $subject);
+		*/		
 		 
 		 
 		 

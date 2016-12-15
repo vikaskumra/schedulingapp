@@ -48,7 +48,7 @@
 				  <td class="sorting_1">{{$customer->first_name}}</td>
                   <td>{{$customer->last_name}}</td>
 
-				  <td style="text-align:center"><a href="{{URL::route('managecontacts', $customer->id)}}" class = "btn btn-primary">Contacts</a></td>
+				  <td><a href="{{URL::route('managecontacts', $customer->id)}}"><span title="manage contacts" class="glyphicon glyphicon-user"></span></a> | <a href="#"></a></td>
 				  
                   <td><a href="{{URL::route('editcontact', $customer->id)}}"><i title="edit person" class="fa fa-pencil" aria-hidden="true"></i></a> 
                  <!-- | <a href="#"><i title="delete person" class="fa fa-trash-o" aria-hidden="true"></i></a>-->

@@ -78,7 +78,10 @@ Route::group(['middleware' => 'ACL:owner'],function () {
 	
 	Route::get('user/setupjobs', ['uses'=>'JobsController@displayJobs'])->name('setupjobs');
     Route::match(['get','post'],'user/addjobs', ['uses'=>'JobsController@addJob'])
-	->name('addjob');  
+	->name('addjob'); 
+    Route::match(['get','post'],'user/editjob/{id}', ['uses'=>'JobsController@editJob'])
+	->name('editjob');	
+    	
 	
 	Route::get('user/managecustomers', ['uses'=>'CustomerController@showCustomers'])->name('managecustomers');
 	Route::match(['get','post'],'user/addcustomer', ['uses'=>'CustomerController@addCustomer'])
@@ -163,6 +166,8 @@ Route::match(['get', 'post'], 'user/editteammember/{id}', ['uses'=>'UserControll
                                   ->name('editteammember');   
 Route::get('/user/teamlogin', 'UserController@teamLogin');	 
 Route::get('/user/task_roles/{id}', 'UserController@getUserByRolesid');	  
-Route::get('/contactmail', 'UserController@sendLoginToContacts');						  
+Route::get('/contactmail', 'UserController@sendLoginToContacts');	 
+Route::get('/user/subdivisionmanager/{id}', ['uses'=>'CustomerController@getProjectManagerByProject'])->name('subdivisionmanager');					  
+Route::get('/user/taskuser/{id}', ['uses'=>'TasksController@getUserByTask'])->name('taskuser');					  
 
 

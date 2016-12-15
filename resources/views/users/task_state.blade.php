@@ -8,7 +8,7 @@
 			
 			<div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Manage Task Phase</h3>
+              <h3 class="box-title">Manage Job Phase</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -18,7 +18,7 @@
                 <div class="form-group">
                   <label for="task_title" class="col-sm-2 control-label">Phase Title:</label>
                   <div class="col-sm-10">
-                    <input type="text" value="{{$state->task_state_name}}" required class="form-control" name="phase_title" id="phase_title" placeholder="Task Name" />
+                    <input type="text" value="{{$state->task_state_name}}" required class="form-control" name="phase_title" id="phase_title" placeholder="Phase Title" />
                   </div>
                 </div>
 
@@ -27,7 +27,7 @@
                   <label for="task_type" class="col-sm-2 control-label">Phase Color:</label>
 
                   <div class="col-sm-10">
-                   <input type="color" value="{{$state->task_state_color}}" required class="form-control" name="phase_color" id="phase_color" placeholder="Task Name" />
+                   <input type="color" value="{{$state->task_state_color}}" required class="form-control" name="phase_color" id="phase_color" placeholder="Phase Color" />
                
                   </div>
                 </div>
@@ -38,7 +38,7 @@
                   <label for="task_comments" class="col-sm-2 control-label">Notes:</label>
 
                   <div class="col-sm-10">
-                    <textarea  value="{{$state->task_state_note}}" class="form-control" name="phase_note" id="task_comments" placeholder="optional"></textarea>
+                    <textarea  class="form-control" name="phase_note" id="task_comments" placeholder="optional">{{$state->task_state_note}}</textarea>
                   </div>
                 </div>
 		      		<input type="hidden" name="task_id" value="">

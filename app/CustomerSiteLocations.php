@@ -20,7 +20,8 @@ class CustomerSiteLocations extends Model
 									  'customer_site_locations.location_title','customer_site_locations.street_address',
 									  'users.first_name as user_first', 'users.last_name as user_last',
 									  'customer_site_locations.customer_id', 'customers.company_id',
-									  'customer_site_locations.project_manager', 'users.id as user_id')
+									  'customer_site_locations.project_manager', 'users.id as user_id',
+									  'customer_site_locations.lot_number', 'customer_site_locations.subdivision')
 					->get();  
 		return $location;
 		//var_dump($location);

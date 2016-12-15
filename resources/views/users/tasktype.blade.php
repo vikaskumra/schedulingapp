@@ -18,17 +18,17 @@
                 <div class="form-group">
                   <label for="title" class="col-sm-2 control-label">Role Title:</label>
                   <div class="col-sm-10">
-                    <input type="text" value="{{$data->role_title}}" required class="form-control" name="role_title" id="role_title" placeholder="Role Title" />
+                    <input type="text" value="{{$data->tasktype_title}}" required class="form-control" name="role_title" id="role_title" placeholder="Role Title" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="notes" class="col-sm-2 control-label">Notes:</label>
 
                   <div class="col-sm-10">
-                    <textarea  class="form-control" name="role_notes" id="role_notes" placeholder="Notes.">{{$data->role_notes}}</textarea>
+                    <textarea  class="form-control" name="role_notes" id="role_notes" placeholder="Notes.">{{$data->comments}}</textarea>
                   </div>
                 </div>
-				<input type="hidden" name="roles_id" value="{{$data->roles_id}}">
+				<input type="hidden" name="roles_id" value="{{$data->tasktypes_id}}">
               {!! csrf_field() !!}
               </div>
               <!-- /.box-body -->

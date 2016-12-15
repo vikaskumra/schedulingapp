@@ -66,4 +66,8 @@
 	.icon_menu ul li{
 		display:inline-block;
 	}
+}  
+
+.requiredJob{
+	border:1px solid #bf1d1d;
 }

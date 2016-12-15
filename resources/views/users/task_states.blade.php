@@ -12,8 +12,8 @@
 			
 			<div class="box box-info">
             <div class="box-header with-border">
-             <h3 class="box-title">Manage Task Phases</h3>
-			 <a href="{{URL::route('addtaskstate')}}" class="btn btn-info pull-right">Add New Task Phase</a>
+             <h3 class="box-title">Manage Job Phases</h3>
+			 <a href="{{URL::route('addtaskstate')}}" class="btn btn-info pull-right">Add Job Phase</a>
             </div>
             <!-- /.box-header -->
            

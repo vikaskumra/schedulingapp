@@ -15,8 +15,8 @@
 			
 			<div class="box box-info">
             <div class="box-header with-border">
-             <h3 class="box-title">Manage Customers</h3>
-			 <a href="{{URL::route('addcustomerdevelopment')}}" class="btn btn-info pull-right">Add New Customer Development</a>
+             <h3 class="box-title">Manage Developments / Subdivisions</h3>
+			 <a href="{{URL::route('addcustomerdevelopment')}}" class="btn btn-info pull-right">Add Development</a>
             </div>
             <!-- /.box-header -->
            

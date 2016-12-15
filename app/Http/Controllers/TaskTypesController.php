@@ -24,8 +24,8 @@ class TaskTypesController extends Controller
     public function addtasktype()
     {
         
-        if(!empty(Input::get('tasktype_title'))):
-           $this->saveTaskType();
+        if(!empty(Input::get('role_title'))):
+		   $this->saveTaskType();
            return redirect()->route('setuptasktypes');
         else:
              $data=new TaskTypes;
@@ -40,8 +40,11 @@ class TaskTypesController extends Controller
         if(empty($id)):
           return redirect()->route('userdashboard');
         else:
-            if(!empty(Input::get('tasktype_title'))):
-                $this->saveTaskType();
+            if(!empty(Input::get('role_title'))):
+                $tasktypes = TaskTypes::findOrFail($id);  
+				$tasktypes->tasktype_title = Input::get('role_title'); 
+				$tasktypes->comments = Input::get('role_notes');
+				$tasktypes->save();
                 return redirect()->route('setuptasktypes');
             else: 
                  $data = $tasktypesObj->getTaskTypes($id);
@@ -59,8 +62,8 @@ class TaskTypesController extends Controller
                // $rolesObj->roles_id = Input::get('roles_id')
               
             $tasktypesO = $tasktypesObj->getTaskTypes(Input::get('tasktypes_id'));
-            $tasktypesO->tasktype_title = Input::get('tasktype_title');
-            $tasktypesO->comments = Input::get('comments');
+            $tasktypesO->tasktype_title = Input::get('role_title');
+            $tasktypesO->comments = Input::get('role_notes');
             $tasktypesO->save();
          
          }
@@ -68,8 +71,8 @@ class TaskTypesController extends Controller
          {
                
                
-               $tasktypesObj->tasktype_title = Input::get('tasktype_title');
-               $tasktypesObj->comments = Input::get('comments');
+               $tasktypesObj->tasktype_title = Input::get('role_title');
+               $tasktypesObj->comments = Input::get('role_notes');
                $tasktypesObj->company_id = Auth::user()->company_id;
                $tasktypesObj->save();    
          }

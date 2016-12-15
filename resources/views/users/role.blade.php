@@ -32,15 +32,16 @@
                 <div class="form-group">
                   <label for="notes" class="col-sm-2 control-label">Tasks:</label>
 
-                  <div class="col-sm-10">
+                  <div class="col-sm-10" style="line-height: 32px;">
                 
                    @foreach($tasks as $task)
                     @if(in_array($task->task_id,$tasksMapped))
                       <input checked="checked"  type="checkbox" name="roletasks[]" id="{{$task->task_id}}" value="{{$task->task_id}}" /> {{$task->task_title}}
-                    @else
-                          
+                      
+					@else                
                        <input  type="checkbox" name="roletasks[]" id="{{$task->task_id}}" value="{{$task->task_id}}" /> {{$task->task_title}}
                     @endif 
+					<br>
                    @endforeach
                   </div>
                 </div>  

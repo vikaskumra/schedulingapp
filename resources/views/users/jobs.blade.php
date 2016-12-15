@@ -38,7 +38,7 @@
                 <tr role="row" class="odd">
                   <td class="sorting_1">{{$job->job_title}}</td>
                   <td>{{$job->job_description}}</td>
-                  <td><a href="#"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> 
+                  <td><a href="{{URL::route('editjob', $job->id)}}"><i title="edit" class="fa fa-pencil" aria-hidden="true"></i></a> 
                  
                   </td>
                 </tr>

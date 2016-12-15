@@ -15,7 +15,7 @@
 			
 			<div class="box box-info">
             <div class="box-header with-border">
-             <h3 class="box-title">Manage Customer Site Location</h3>
+             <h3 class="box-title">Manage Projects</h3>
 			 <a href="{{URL::route('addcustomersitelocation')}}" class="btn btn-info pull-right">Add New Location</a>
             </div>
             <!-- /.box-header -->
@@ -30,8 +30,10 @@
 			  <table id="dataTable" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="dataTable_info">
                 <thead>
                 <tr role="row">
-				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="First Name: activate to sort column ascending" aria-sort="descending">Location</th>
-				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Last Name: activate to sort column ascending">Street Address</th> 
+				<th class="sorting_desc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Lot Number: activate to sort column ascending" aria-sort="descending">Lot Number</th>
+				
+				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Subdivision: activate to sort column ascending">Subdivision</th> 
+				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Street Address: activate to sort column ascending">Street Address</th> 
 				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending" aria-sort="descending">Customer</th>
 				<th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Active: activate to sort column ascending">Project Manager</th>
 				
@@ -43,8 +45,9 @@
          
 			   @foreach($locations as $location)
                 <tr role="row" class="odd">
-                  <td class="sorting_1">{{$location->location_title}}</td>
-                  <td>{{$location->street_address}}</td>
+                  <td class="sorting_1">{{$location->lot_number}}</td>
+                  <td>{{$location->development_name}}</td>
+				  <td>{{$location->street_address}}</td>
 				  <td>@if(!empty($location->company_name))
 				  {{$location->company_name}}
 			      @else
